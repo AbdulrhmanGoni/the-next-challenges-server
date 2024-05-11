@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { MongoObjectIdScalar } from './global-dto/mongoObjectId.scalar';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      resolvers: { MongoObjectId: MongoObjectIdScalar },
     }),
     UsersModule,
   ],
