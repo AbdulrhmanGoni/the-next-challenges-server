@@ -13,15 +13,3 @@ export class SearchForUserInput {
   @Field({ nullable: true })
   fullName?: string;
 }
-
-@InputType()
-export class SearchForUsersInput {
-  @Field(() => [MongoObjectIdScalar], { nullable: true })
-  id?: Types.ObjectId[];
-
-  @Field({ nullable: true })
-  email?: string;
-
-  @Field({ nullable: true })
-  fullName?: string;
-}
