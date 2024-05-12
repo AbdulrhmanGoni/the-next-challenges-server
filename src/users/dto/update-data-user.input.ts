@@ -6,6 +6,9 @@ import { MongoObjectIdScalar } from 'src/global-dto/mongoObjectId.scalar';
 class UpdateUserDataOptions {
   @Field({ nullable: true })
   fullName?: string;
+
+  @Field({ nullable: true })
+  headline?: string;
 }
 
 @InputType()

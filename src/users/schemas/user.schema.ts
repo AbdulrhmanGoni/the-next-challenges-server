@@ -8,6 +8,9 @@ export class User {
   fullName: string;
 
   @Prop()
+  headline: string;
+
+  @Prop()
   email: string;
 
   @Prop()
