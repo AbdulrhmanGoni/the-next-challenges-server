@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { PostsModule } from './posts/posts.module';
 import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -15,6 +16,7 @@ import { MongoObjectIdScalar } from './global-dto/mongoObjectId.scalar';
       resolvers: { MongoObjectId: MongoObjectIdScalar },
     }),
     UsersModule,
+    PostsModule,
   ],
 })
 export class AppModule {}
