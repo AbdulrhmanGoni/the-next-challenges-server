@@ -22,10 +22,4 @@ export class User {
     defaultValue: 'user',
   })
   role: string;
-
-  @Field(() => [Post], {
-    description: 'The posts of the user',
-    defaultValue: [],
-  })
-  posts: Post[];
 }

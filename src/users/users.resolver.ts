@@ -46,7 +46,7 @@ export class UsersResolver {
   }
 
   @ResolveField(() => [Post], { name: 'posts', nullable: true })
-  async posts(
+  async findPosts(
     @Parent() author: UserDocument,
     @Args('options', { nullable: true }) options: PaginationOptions,
   ) {
