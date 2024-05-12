@@ -1,0 +1,112 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """The ID of the user"""
+  id: MongoObjectId!
+
+  """The full name of the user"""
+  fullName: String!
+
+  """The headline of the user"""
+  headline: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The role of the user"""
+  role: String!
+  posts(options: PaginationOptions): [Post!]
+}
+
+"""The `ObjectId` type of Mongo database documents `_id` field"""
+scalar MongoObjectId
+
+input PaginationOptions {
+  page: Int
+  pageSize: Int
+}
+
+type Post {
+  """The ID of the post"""
+  id: MongoObjectId!
+
+  """The title of the post"""
+  title: String!
+
+  """The body or the content of the post"""
+  body: String!
+
+  """The ID of post's author"""
+  authorId: MongoObjectId!
+
+  """The category of the post"""
+  category: String!
+  author: User
+}
+
+type Query {
+  user(userId: MongoObjectId!): User
+  users(searchQuery: SearchForUserInput!, options: PaginationOptions): [User!]!
+  posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
+  post(postId: MongoObjectId!): Post
+}
+
+input SearchForUserInput {
+  id: MongoObjectId
+  email: String
+  fullName: String
+}
+
+input SearchForPostInput {
+  id: MongoObjectId
+  authorId: MongoObjectId
+  title: String
+}
+
+type Mutation {
+  signUpUser(signUpUserInput: SignUpUserInput!): Boolean!
+  updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
+  createPost(createPostInput: CreatePostInput!): Boolean!
+  updatePost(updatePostInput: UpdatePostInput!): Boolean!
+}
+
+input SignUpUserInput {
+  """The full name of the user"""
+  fullName: String!
+
+  """The headline of the user"""
+  headline: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The password of the user"""
+  password: String!
+}
+
+input UpdateUserDataInput {
+  userId: MongoObjectId!
+  updateOptions: UpdateUserDataOptions!
+}
+
+input UpdateUserDataOptions {
+  fullName: String
+  headline: String
+}
+
+input CreatePostInput {
+  title: String!
+  body: String!
+}
+
+input UpdatePostInput {
+  postId: MongoObjectId!
+  updateOptions: UpdatePostOptions!
+}
+
+input UpdatePostOptions {
+  title: String
+  body: String
+}
