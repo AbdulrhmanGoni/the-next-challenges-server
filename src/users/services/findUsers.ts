@@ -8,5 +8,9 @@ export default async function findUsers(
   options?: PaginationOptions,
 ) {
   const UserModel = this.UserModel as Model<User>;
-  return await UserModel.find();
+
+  const limit = options?.pageSize || 2;
+  const skip = ((options?.page || 1) - 1) * limit;
+
+  return await UserModel.find({}, {}, { limit, skip });
 }
