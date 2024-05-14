@@ -1,0 +1,21 @@
+services:
+  primary-mongodb: 
+    image: mongo
+    container_name: primary-mongodb-container
+    ports:
+      - 27017:27017
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "the-next-challenges-set" ]
+
+  secondary-mongodb-1: 
+    image: mongo
+    container_name: secondary-mongodb-container-1
+    ports:
+      - 27018:27017
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "the-next-challenges-set" ]
+
+  secondary-mongodb-2: 
+    image: mongo
+    container_name: secondary-mongodb-container-2
+    ports:
+      - 27019:27017
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "the-next-challenges-set" ]

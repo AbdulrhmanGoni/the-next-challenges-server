@@ -1,0 +1,28 @@
+services:
+  primary-mongodb: 
+    extends:
+      file: docker-compose-mongodb-replSet.yaml
+      service: primary-mongodb
+    volumes:
+      - ./mongodb:/data/db
+      - ./scripts/initialize-mongodb-replSet.sh:/scripts/initialize-mongodb-replSet.sh
+    networks:
+      - the-next-challenges-dev-network
+
+  secondary-mongodb-1: 
+    extends:
+      file: docker-compose-mongodb-replSet.yaml
+      service: secondary-mongodb-1
+    networks:
+      - the-next-challenges-dev-network
+
+  secondary-mongodb-2: 
+    extends:
+      file: docker-compose-mongodb-replSet.yaml
+      service: secondary-mongodb-2
+    networks:
+      - the-next-challenges-dev-network
+
+networks:
+  the-next-challenges-dev-network: 
+    driver: bridge
