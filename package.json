@@ -2,9 +2,10 @@
   "name": "the-next-challenges-server",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Abdulrhman Goni",
   "private": true,
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
