@@ -1,0 +1,17 @@
+services:
+  the-next-challenges-server-dev:
+    image: the-next-challenges-server-dev
+    build: .
+    command: yarn start:dev
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src:/the-next-challenges-server/src
+    env_file:
+      - .env.development.local
+    networks:
+      - the-next-challenges-dev-network
+
+networks:
+  the-next-challenges-dev-network: 
+    driver: bridge
