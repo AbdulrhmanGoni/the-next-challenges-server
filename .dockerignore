@@ -1,0 +1,13 @@
+/dist
+/node_modules
+/mongodb
+/test
+/coverage
+/scripts
+Dockerfile
+docker-compose*
+.env.*
+.eslintrc.js
+.gitignore
+.prettierrc
+yarn.lock
