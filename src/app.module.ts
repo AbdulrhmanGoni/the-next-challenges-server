@@ -9,7 +9,7 @@ import { MongoObjectIdScalar } from './global-dto/mongoObjectId.scalar';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017'),
+    MongooseModule.forRoot('mongodb://primary-mongodb'),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
