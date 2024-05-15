@@ -1,5 +1,4 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Post } from 'src/global-dto/post-data.type';
 import { MongoObjectIdScalar } from './mongoObjectId.scalar';
 import { Types } from 'mongoose';
 

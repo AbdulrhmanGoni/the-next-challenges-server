@@ -11,11 +11,11 @@ import { Post } from '../global-dto/post-data.type';
 import { CreatePostInput } from './dto/create-post.input';
 import { UpdatePostInput } from './dto/update-post.input';
 import { SearchForPostInput } from './dto/search-for-post.input';
-import { User } from 'src/global-dto/user-data.type';
-import { UsersService } from 'src/users/users.service';
-import { PaginationOptions } from 'src/global-dto/pagination-options.dto';
+import { User } from '../global-dto/user-data.type';
+import { UsersService } from '../users/users.service';
+import { PaginationOptions } from '../global-dto/pagination-options.dto';
 import { Types } from 'mongoose';
-import { MongoObjectIdScalar } from 'src/global-dto/mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
 
 @Resolver(() => Post)
 export class PostsResolver {

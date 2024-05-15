@@ -1,4 +1,4 @@
-import { PaginationOptions } from 'src/global-dto/pagination-options.dto';
+import { PaginationOptions } from '../../global-dto/pagination-options.dto';
 import { SearchForUserInput } from '../dto/search-for-users.input';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.schema';

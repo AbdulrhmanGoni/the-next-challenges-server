@@ -9,13 +9,13 @@ import {
 import { UsersService } from './users.service';
 import { SignUpUserInput } from './dto/create-user.input';
 import { UpdateUserDataInput } from './dto/update-data-user.input';
-import { PostsService } from 'src/posts/posts.service';
+import { PostsService } from '../posts/posts.service';
 import { SearchForUserInput } from './dto/search-for-users.input';
-import { User } from 'src/global-dto/user-data.type';
-import { Post } from 'src/global-dto/post-data.type';
+import { User } from '../global-dto/user-data.type';
+import { Post } from '../global-dto/post-data.type';
 import { UserDocument } from './schemas/user.schema';
-import { PaginationOptions } from 'src/global-dto/pagination-options.dto';
-import { MongoObjectIdScalar } from 'src/global-dto/mongoObjectId.scalar';
+import { PaginationOptions } from '../global-dto/pagination-options.dto';
+import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
 
 @Resolver(() => User)

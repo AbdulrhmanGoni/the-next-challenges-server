@@ -1,4 +1,4 @@
-import { PaginationOptions } from 'src/global-dto/pagination-options.dto';
+import { PaginationOptions } from '../../global-dto/pagination-options.dto';
 import { SearchForPostInput } from '../dto/search-for-post.input';
 import { Post } from '../schemas/post.schema';
 import { Model } from 'mongoose';

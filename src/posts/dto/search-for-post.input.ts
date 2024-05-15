@@ -1,6 +1,6 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { Types } from 'mongoose';
-import { MongoObjectIdScalar } from 'src/global-dto/mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../../global-dto/mongoObjectId.scalar';
 
 @InputType()
 export class SearchForPostInput {

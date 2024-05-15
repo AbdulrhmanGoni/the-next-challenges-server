@@ -3,7 +3,7 @@ import { PostsService } from './posts.service';
 import { PostsResolver } from './posts.resolver';
 import { Post, PostSchema } from './schemas/post.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from 'src/users/users.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   providers: [PostsResolver, PostsService],
