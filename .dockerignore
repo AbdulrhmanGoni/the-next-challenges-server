@@ -1,13 +1,13 @@
 /dist
 /node_modules
 /mongodb
-/test
+/tests
 /coverage
 /scripts
 Dockerfile
 docker-compose*
 .env.*
-.eslintrc.js
+.eslintrc.cjs
 .gitignore
 .prettierrc
 yarn.lock
