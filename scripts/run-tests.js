@@ -2,7 +2,7 @@ import { argv } from 'process';
 import execute from './execute.js';
 import initializeMongodbReplSet from './initializeMongodbReplSet.js';
 
-const target = argv[2];
+const target = argv[2] || "all";
 
 if (target === "units") {
     execute('yarn test:units');
