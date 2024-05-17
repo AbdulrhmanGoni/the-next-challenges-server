@@ -1,6 +1,6 @@
 import { argv } from 'process';
-import execute from './execute.js';
-import initializeMongodbReplSet from './initializeMongodbReplSet.js';
+import execute from './execute.mjs';
+import initializeMongodbReplSet from './initializeMongodbReplSet.mjs';
 
 const target = argv[2] || "all";
 

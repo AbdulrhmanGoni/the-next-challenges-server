@@ -1,4 +1,4 @@
-import execute from './execute.js';
+import execute from './execute.mjs';
 
 export default async function initializeMongodbReplSet() {
   return new Promise((resolve, reject) => {
