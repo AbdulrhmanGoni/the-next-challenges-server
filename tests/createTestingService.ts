@@ -27,20 +27,20 @@ export default async function createTestingService<MainServiceType>({
     | ForwardReference<any>
   )[];
 }) {
-  const module = await Test.createTestingModule({
-    providers: [MainService as Provider, ...providers],
-    exports: [MainService as Provider, ...exports],
-    imports: [
-      MongooseModule.forRoot(testingDatabaseURI),
-      MongooseModule.forFeature([
-        { name: databaseModel.name, schema: databaseModel.schema },
-      ]),
-      ...imports,
-    ],
-  }).compile();
+  const app = await (
+    await Test.createTestingModule({
+      providers: [MainService as Provider, ...providers],
+      exports: [MainService as Provider, ...exports],
+      imports: [
+        MongooseModule.forRoot(testingDatabaseURI),
+        MongooseModule.forFeature([
+          { name: databaseModel.name, schema: databaseModel.schema },
+        ]),
+        ...imports,
+      ],
+    }).compile()
+  ).init();
 
-  const service = module.get<typeof MainService>(
-    MainService,
-  ) as MainServiceType;
-  return { service, app: module };
+  const service = app.get<typeof MainService>(MainService) as MainServiceType;
+  return { service, app };
 }
