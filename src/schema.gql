@@ -46,6 +46,10 @@ type Post {
   author: User
 }
 
+type JWTToken {
+  accessToken: String!
+}
+
 type Query {
   user(userId: MongoObjectId!): User
   users(searchQuery: SearchForUserInput!, options: PaginationOptions): [User!]!
@@ -66,24 +70,11 @@ input SearchForPostInput {
 }
 
 type Mutation {
-  signUpUser(signUpUserInput: SignUpUserInput!): Boolean!
   updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
   createPost(createPostInput: CreatePostInput!): Boolean!
   updatePost(updatePostInput: UpdatePostInput!): Boolean!
-}
-
-input SignUpUserInput {
-  """The full name of the user"""
-  fullName: String!
-
-  """The headline of the user"""
-  headline: String!
-
-  """The email of the user"""
-  email: String!
-
-  """The password of the user"""
-  password: String!
+  logInUser(logInUserInput: LogInUserInput!): JWTToken
+  signUpUser(signUpUserInput: SignUpUserInput!): JWTToken
 }
 
 input UpdateUserDataInput {
@@ -109,4 +100,23 @@ input UpdatePostInput {
 input UpdatePostOptions {
   title: String
   body: String
+}
+
+input LogInUserInput {
+  email: String!
+  password: String!
+}
+
+input SignUpUserInput {
+  """The full name of the user"""
+  fullName: String!
+
+  """The headline of the user"""
+  headline: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The password of the user"""
+  password: String!
 }
