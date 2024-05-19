@@ -7,7 +7,6 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { SignUpUserInput } from './dto/create-user.input';
 import { UpdateUserDataInput } from './dto/update-data-user.input';
 import { PostsService } from '../posts/posts.service';
 import { SearchForUserInput } from './dto/search-for-users.input';
@@ -24,11 +23,6 @@ export class UsersResolver {
     private usersService: UsersService,
     private postsService: PostsService,
   ) {}
-
-  @Mutation(() => Boolean)
-  async signUpUser(@Args('signUpUserInput') signUpUserInput: SignUpUserInput) {
-    return await this.usersService.signUpUser(signUpUserInput);
-  }
 
   @Query(() => User, { name: 'user', nullable: true })
   async findUserById(

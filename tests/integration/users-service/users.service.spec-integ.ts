@@ -23,10 +23,6 @@ describe('UsersService', () => {
     app?.close();
   });
 
-  it('`signUpUser` method should be defined', () => {
-    expect(service.signUpUser).toBeDefined();
-  });
-
   it('`findUserById` method should be defined', () => {
     expect(service.findUserById).toBeDefined();
   });
