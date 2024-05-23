@@ -2,14 +2,12 @@ import { Model } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { SignUpUserInput } from '../dto/sign-up-user.input';
 import { hash } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 import { roles } from '../../constants/users-roles';
 import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { JWTToken } from '../dto/jwt-token-payload.dto';
-import { AuthService } from '../auth.service';
 
 export default async function signUpUser(
   userInput: SignUpUserInput,
@@ -37,8 +35,7 @@ export default async function signUpUser(
     const newUser = new UserModel({ ...userInput, password: hashedPassword });
     await newUser.save();
 
-    const sign = this.sign as AuthService['sign'];
-    return sign({
+    return this.sign({
       id: newUser.id,
       email: newUser.email,
       role: roles.USER,
