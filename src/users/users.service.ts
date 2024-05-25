@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { findUserById, findUsers, updateUserData } from './services';
+import { findUserById, findUsers, updateUserData, addPost } from './services';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './schemas/user.schema';
@@ -13,4 +13,6 @@ export class UsersService {
   findUserById = findUserById;
 
   updateUserData = updateUserData;
+
+  addPost = addPost;
 }
