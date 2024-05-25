@@ -1,28 +1,28 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
+import { Types, HydratedDocument } from 'mongoose';
 import { roles } from '../../constants/users-roles';
 
 @Schema()
 export class User {
-  @Prop()
+  @Prop({ required: true })
   fullName: string;
 
-  @Prop()
+  @Prop({ required: true })
   headline: string;
 
-  @Prop()
+  @Prop({ required: true })
   email: string;
 
-  @Prop()
+  @Prop({ required: true })
   password: string;
 
-  @Prop({ default: roles.USER })
+  @Prop({ default: roles.USER, required: true })
   role: string;
 
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Post', default: [] })
-  posts: mongoose.Schema.Types.ObjectId[];
+  @Prop({ type: [Types.ObjectId], ref: 'Post', default: [] })
+  posts: Types.ObjectId[];
 }
 
-export type UserDocument = mongoose.HydratedDocument<User>;
+export type UserDocument = HydratedDocument<User>;
 
 export const UserSchema = SchemaFactory.createForClass(User);
