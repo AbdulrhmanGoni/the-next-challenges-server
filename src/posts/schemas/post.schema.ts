@@ -11,6 +11,9 @@ export class Post {
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   authorId: Types.ObjectId;
+
+  @Prop({ required: true })
+  category: string;
 }
 
 export type PostDocument = HydratedDocument<Post>;

@@ -3,12 +3,15 @@ import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../../global-dto/mongoObjectId.scalar';
 
 @InputType()
-class UpdatePostOptions {
+export class UpdatePostOptions {
   @Field({ nullable: true })
   title: string;
 
   @Field({ nullable: true })
   body: string;
+
+  @Field({ nullable: true })
+  category: string;
 }
 
 @InputType()

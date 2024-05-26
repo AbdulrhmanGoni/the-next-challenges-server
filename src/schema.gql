@@ -90,6 +90,7 @@ input UpdateUserDataOptions {
 input CreatePostInput {
   title: String!
   body: String!
+  category: String!
 }
 
 input UpdatePostInput {
@@ -100,6 +101,7 @@ input UpdatePostInput {
 input UpdatePostOptions {
   title: String
   body: String
+  category: String
 }
 
 input LogInUserInput {
