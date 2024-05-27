@@ -16,6 +16,8 @@ import { UsersService } from '../users/users.service';
 import { PaginationOptions } from '../global-dto/pagination-options.dto';
 import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
+import { UseGuards } from '@nestjs/common';
+import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -25,8 +27,12 @@ export class PostsResolver {
   ) {}
 
   @Mutation(() => Boolean)
-  async createPost(@Args('createPostInput') createPostInput: CreatePostInput) {
-    return await this.postsService.createPost(createPostInput);
+  @UseGuards(GqlJwtAuthGuard)
+  async createPost(
+    @Args('createPostInput') createPostInput: CreatePostInput,
+    @CurrentUser() user: User,
+  ) {
+    return await this.postsService.createPost(createPostInput, user.id);
   }
 
   @Query(() => [Post], { name: 'posts' })
@@ -50,6 +56,7 @@ export class PostsResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseGuards(GqlJwtAuthGuard)
   async updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
     return await this.postsService.updatePost(updatePostInput);
   }
