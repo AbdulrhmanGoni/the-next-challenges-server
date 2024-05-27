@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
-import { Model } from 'mongoose';
+import { Connection, Model } from 'mongoose';
 import { createPost, findPostById, findPosts, updatePost } from './services';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class PostsService {
-  constructor(@InjectModel(Post.name) private PostModel: Model<Post>) {}
+  constructor(
+    @InjectModel(Post.name) private PostModel: Model<Post>,
+    private UsersService: UsersService,
+    @InjectConnection() private connection: Connection,
+  ) {}
 
   createPost = createPost;
 
