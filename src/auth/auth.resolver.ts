@@ -2,11 +2,11 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { LogInUserInput } from './dto/log-in-user.input';
 import { SignUpUserInput } from './dto/sign-up-user.input';
-import { JWTToken } from './dto/jwt-token-payload.dto';
+import { JWTToken } from './dto/auth-related.dto';
 
 @Resolver()
 export class AuthResolver {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Mutation(() => JWTToken, { nullable: true })
   async logInUser(@Args('logInUserInput') logInUserInput: LogInUserInput) {

@@ -2,7 +2,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LogInUserInput } from '../dto/log-in-user.input';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
-import { JWTToken } from '../dto/jwt-token-payload.dto';
+import { JWTToken } from '../dto/auth-related.dto';
 
 export default async function logInUser(
   userInput: LogInUserInput,

@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { compare } from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
-import { JWTTokenPayload } from '../dto/jwt-token-payload.dto';
+import { JWTTokenPayload } from '../dto/auth-related.dto';
 
 export default async function checkUserCredentials(
   email: string,

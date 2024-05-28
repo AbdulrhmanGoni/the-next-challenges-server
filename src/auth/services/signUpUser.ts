@@ -7,7 +7,7 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { JWTToken } from '../dto/jwt-token-payload.dto';
+import { JWTToken } from '../dto/auth-related.dto';
 
 export default async function signUpUser(
   userInput: SignUpUserInput,

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { JWTTokenPayload } from '../dto/jwt-token-payload.dto';
+import { JWTTokenPayload } from '../dto/auth-related.dto';
 import { Types } from 'mongoose';
 
 @Injectable()
