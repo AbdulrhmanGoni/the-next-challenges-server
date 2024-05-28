@@ -10,7 +10,9 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://primary-mongodb'),
+    MongooseModule.forRoot(
+      'mongodb://primary-mongodb,secondary-mongodb-1,secondary-mongodb-2',
+    ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
