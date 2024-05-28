@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { JWTTokenPayload } from '../dto/auth-related.dto';
+import { JWTPayload } from '../dto/auth-related.dto';
 import { Types } from 'mongoose';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JWTTokenPayload) {
+  async validate(payload: JWTPayload) {
     return {
       id: new Types.ObjectId(payload.id),
       email: payload.email,

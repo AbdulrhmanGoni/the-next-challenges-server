@@ -7,11 +7,11 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { JWTToken } from '../dto/auth-related.dto';
+import { JWT } from '../dto/auth-related.dto';
 
 export default async function signUpUser(
   userInput: SignUpUserInput,
-): Promise<JWTToken> {
+): Promise<JWT> {
   const UserModel = this.UserModel as Model<User>;
   let isUserExist = false;
   try {

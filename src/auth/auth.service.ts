@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import signUpUser from './services/signUpUser';
 import logInUser from './services/logInUser';
 import checkUserCredentials from './services/checkUserCredentials';
-import { JWTToken, JWTTokenPayload } from './dto/auth-related.dto';
+import { JWT, JWTPayload } from './dto/auth-related.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
   signUpUser = signUpUser;
   logInUser = logInUser;
   checkUserCredentials = checkUserCredentials;
-  sign(payload: JWTTokenPayload): JWTToken {
+  sign(payload: JWTPayload): JWT {
     return { accessToken: this.jwtService.sign(payload) };
   }
 }

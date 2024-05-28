@@ -2,12 +2,12 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 
 @ObjectType()
-export class JWTToken {
+export class JWT {
   @Field()
   accessToken: string;
 }
 
-export type JWTTokenPayload = {
+export type JWTPayload = {
   id: string;
   email: string;
   role: string;

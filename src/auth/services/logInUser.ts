@@ -2,11 +2,11 @@ import { JwtService } from '@nestjs/jwt';
 import { LogInUserInput } from '../dto/log-in-user.input';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
-import { JWTToken } from '../dto/auth-related.dto';
+import { JWT } from '../dto/auth-related.dto';
 
 export default async function logInUser(
   userInput: LogInUserInput,
-): Promise<JWTToken> {
+): Promise<JWT> {
   const authService = this as AuthService;
   const user = await authService.checkUserCredentials(
     userInput.email,

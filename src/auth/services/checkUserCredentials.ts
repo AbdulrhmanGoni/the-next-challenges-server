@@ -2,12 +2,12 @@ import { Model } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
 import { compare } from 'bcrypt';
 import { InternalServerErrorException } from '@nestjs/common';
-import { JWTTokenPayload } from '../dto/auth-related.dto';
+import { JWTPayload } from '../dto/auth-related.dto';
 
 export default async function checkUserCredentials(
   email: string,
   password: string,
-): Promise<JWTTokenPayload | null> {
+): Promise<JWTPayload | null> {
   const UserModel = this.UserModel as Model<User>;
   try {
     const user = await UserModel.findOne({ email }, [

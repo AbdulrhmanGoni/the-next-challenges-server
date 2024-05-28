@@ -46,7 +46,7 @@ type Post {
   author: User
 }
 
-type JWTToken {
+type JWT {
   accessToken: String!
 }
 
@@ -73,8 +73,8 @@ type Mutation {
   updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
   createPost(createPostInput: CreatePostInput!): Boolean!
   updatePost(updatePostInput: UpdatePostInput!): Boolean!
-  logInUser(logInUserInput: LogInUserInput!): JWTToken
-  signUpUser(signUpUserInput: SignUpUserInput!): JWTToken
+  logInUser(logInUserInput: LogInUserInput!): JWT
+  signUpUser(signUpUserInput: SignUpUserInput!): JWT
 }
 
 input UpdateUserDataInput {
