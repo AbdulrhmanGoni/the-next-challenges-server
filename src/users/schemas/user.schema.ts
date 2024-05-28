@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, HydratedDocument } from 'mongoose';
 import { roles } from '../../constants/users-roles';
 
-@Schema()
+@Schema({ versionKey: false })
 export class User {
   @Prop({ required: true })
   fullName: string;
