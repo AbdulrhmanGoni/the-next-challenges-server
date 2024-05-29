@@ -18,6 +18,7 @@ import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -30,7 +31,7 @@ export class PostsResolver {
   @UseGuards(GqlJwtAuthGuard)
   async createPost(
     @Args('createPostInput') createPostInput: CreatePostInput,
-    @CurrentUser() user: User,
+    @CurrentUser() user: AuthorizedUser,
   ) {
     return await this.postsService.createPost(createPostInput, user.id);
   }
@@ -57,7 +58,14 @@ export class PostsResolver {
 
   @Mutation(() => Boolean)
   @UseGuards(GqlJwtAuthGuard)
-  async updatePost(@Args('updatePostInput') updatePostInput: UpdatePostInput) {
-    return await this.postsService.updatePost(updatePostInput);
+  async updatePost(
+    @Args('updatePostInput') updatePostInput: UpdatePostInput,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.postsService.updatePost(
+      updatePostInput.postId,
+      user.id,
+      updatePostInput.updateOptions,
+    );
   }
 }
