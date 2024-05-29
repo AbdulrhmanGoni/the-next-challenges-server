@@ -9,7 +9,7 @@ import {
 import { PostsService } from './posts.service';
 import { Post } from '../global-dto/post-data.type';
 import { CreatePostInput } from './dto/create-post.input';
-import { UpdatePostInput } from './dto/update-post.input';
+import { EditPostInput } from './dto/update-post.input';
 import { SearchForPostInput } from './dto/search-for-post.input';
 import { User } from '../global-dto/user-data.type';
 import { UsersService } from '../users/users.service';
@@ -58,14 +58,14 @@ export class PostsResolver {
 
   @Mutation(() => Boolean)
   @UseGuards(GqlJwtAuthGuard)
-  async updatePost(
-    @Args('updatePostInput') updatePostInput: UpdatePostInput,
+  async editPost(
+    @Args('editPostInput') editPostInput: EditPostInput,
     @CurrentUser() user: AuthorizedUser,
   ) {
-    return await this.postsService.updatePost(
-      updatePostInput.postId,
+    return await this.postsService.editPost(
+      editPostInput.postId,
       user.id,
-      updatePostInput.updateOptions,
+      editPostInput.editOptions,
     );
   }
 }

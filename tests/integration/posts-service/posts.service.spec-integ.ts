@@ -35,7 +35,7 @@ describe('PostsService', () => {
     expect(service.findPosts).toBeDefined();
   });
 
-  it('`updatePost` method should be defined', () => {
-    expect(service.updatePost).toBeDefined();
+  it('`editPost` method should be defined', () => {
+    expect(service.editPost).toBeDefined();
   });
 });

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
 import { Connection, Model } from 'mongoose';
-import { createPost, findPostById, findPosts, updatePost } from './services';
+import { createPost, findPostById, findPosts, editPost } from './services';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -19,5 +19,5 @@ export class PostsService {
 
   findPostById = findPostById;
 
-  updatePost = updatePost;
+  editPost = editPost;
 }

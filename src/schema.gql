@@ -3,24 +3,36 @@
 # ------------------------------------------------------
 
 type User {
-  """The ID of the user"""
+  """
+  The ID of the user
+  """
   id: MongoObjectId!
 
-  """The full name of the user"""
+  """
+  The full name of the user
+  """
   fullName: String!
 
-  """The headline of the user"""
+  """
+  The headline of the user
+  """
   headline: String!
 
-  """The email of the user"""
+  """
+  The email of the user
+  """
   email: String!
 
-  """The role of the user"""
+  """
+  The role of the user
+  """
   role: String!
   posts(options: PaginationOptions): [Post!]
 }
 
-"""The `ObjectId` type of Mongo database documents `_id` field"""
+"""
+The `ObjectId` type of Mongo database documents `_id` field
+"""
 scalar MongoObjectId
 
 input PaginationOptions {
@@ -29,19 +41,29 @@ input PaginationOptions {
 }
 
 type Post {
-  """The ID of the post"""
+  """
+  The ID of the post
+  """
   id: MongoObjectId!
 
-  """The title of the post"""
+  """
+  The title of the post
+  """
   title: String!
 
-  """The body or the content of the post"""
+  """
+  The body or the content of the post
+  """
   body: String!
 
-  """The ID of post's author"""
+  """
+  The ID of post's author
+  """
   authorId: MongoObjectId!
 
-  """The category of the post"""
+  """
+  The category of the post
+  """
   category: String!
   author: User
 }
@@ -72,7 +94,7 @@ input SearchForPostInput {
 type Mutation {
   updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
   createPost(createPostInput: CreatePostInput!): Boolean!
-  updatePost(updatePostInput: UpdatePostInput!): Boolean!
+  editPost(editPostInput: EditPostInput!): Boolean!
   logInUser(logInUserInput: LogInUserInput!): JWT
   signUpUser(signUpUserInput: SignUpUserInput!): JWT
 }
@@ -93,12 +115,12 @@ input CreatePostInput {
   category: String!
 }
 
-input UpdatePostInput {
+input EditPostInput {
   postId: MongoObjectId!
-  updateOptions: UpdatePostOptions!
+  updateOptions: EditPostOptions!
 }
 
-input UpdatePostOptions {
+input EditPostOptions {
   title: String
   body: String
   category: String
@@ -110,15 +132,23 @@ input LogInUserInput {
 }
 
 input SignUpUserInput {
-  """The full name of the user"""
+  """
+  The full name of the user
+  """
   fullName: String!
 
-  """The headline of the user"""
+  """
+  The headline of the user
+  """
   headline: String!
 
-  """The email of the user"""
+  """
+  The email of the user
+  """
   email: String!
 
-  """The password of the user"""
+  """
+  The password of the user
+  """
   password: String!
 }

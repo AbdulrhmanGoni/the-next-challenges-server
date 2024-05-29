@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../../global-dto/mongoObjectId.scalar';
 
 @InputType()
-export class UpdatePostOptions {
+export class EditPostOptions {
   @Field({ nullable: true })
   title: string;
 
@@ -15,10 +15,10 @@ export class UpdatePostOptions {
 }
 
 @InputType()
-export class UpdatePostInput {
+export class EditPostInput {
   @Field(() => MongoObjectIdScalar)
   postId: Types.ObjectId;
 
   @Field()
-  updateOptions: UpdatePostOptions;
+  editOptions: EditPostOptions;
 }
