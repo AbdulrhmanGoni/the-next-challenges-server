@@ -68,4 +68,13 @@ export class PostsResolver {
       editPostInput.editOptions,
     );
   }
+
+  @Mutation(() => Boolean)
+  @UseGuards(GqlJwtAuthGuard)
+  async deletePost(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.postsService.deletePost(postId, user.id);
+  }
 }
