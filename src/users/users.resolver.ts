@@ -47,7 +47,7 @@ export class UsersResolver {
     @Parent() author: UserDocument,
     @Args('options', { nullable: true }) options: PaginationOptions,
   ) {
-    return await this.postsService.findPosts({ authorId: author.id }, options);
+    return await this.postsService.findPosts({ authorId: author._id }, options);
   }
 
   @Mutation(() => Boolean)
