@@ -16,8 +16,11 @@ import { UserDocument } from './schemas/user.schema';
 import { PaginationOptions } from '../global-dto/pagination-options.dto';
 import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
+import { UseGuards } from '@nestjs/common';
+import { GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Resolver(() => User)
+@UseGuards(GqlJwtAuthGuard)
 export class UsersResolver {
   constructor(
     private usersService: UsersService,
