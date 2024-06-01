@@ -17,7 +17,8 @@ import { PaginationOptions } from '../global-dto/pagination-options.dto';
 import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
 import { UseGuards } from '@nestjs/common';
-import { GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 
 @Resolver(() => User)
 @UseGuards(GqlJwtAuthGuard)
@@ -26,6 +27,11 @@ export class UsersResolver {
     private usersService: UsersService,
     private postsService: PostsService,
   ) {}
+
+  @Query(() => User, { name: 'userData', nullable: true })
+  async getUserData(@CurrentUser() user: AuthorizedUser) {
+    return await this.usersService.findUserById(user.id);
+  }
 
   @Query(() => User, { name: 'user', nullable: true })
   async findUserById(
