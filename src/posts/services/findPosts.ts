@@ -8,6 +8,16 @@ export default async function findPosts(
   options?: PaginationOptions,
 ) {
   const PostModel = this.PostModel as Model<Post>;
-  const posts = await PostModel.find(searchQuery);
+
+  const { page = 0, pageSize = 10 } = options || {};
+
+  const posts = await PostModel.find(
+    searchQuery,
+    {},
+    {
+      limit: pageSize,
+      skip: pageSize * (page - 1),
+    },
+  );
   return posts;
 }
