@@ -8,6 +8,8 @@ import {
   findPosts,
   editPost,
   deletePost,
+  upvotePost,
+  downvotePost,
 } from './services';
 import { UsersService } from '../users/users.service';
 
@@ -28,4 +30,8 @@ export class PostsService {
   editPost = editPost;
 
   deletePost = deletePost;
+
+  upvotePost = upvotePost;
+
+  downvotePost = downvotePost;
 }
