@@ -77,4 +77,22 @@ export class PostsResolver {
   ) {
     return await this.postsService.deletePost(postId, user.id);
   }
+
+  @Mutation(() => Boolean)
+  @UseGuards(GqlJwtAuthGuard)
+  async upvotePost(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.postsService.upvotePost(postId, user.id);
+  }
+
+  @Mutation(() => Boolean)
+  @UseGuards(GqlJwtAuthGuard)
+  async downvotePost(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.postsService.downvotePost(postId, user.id);
+  }
 }
