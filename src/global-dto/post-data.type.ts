@@ -1,6 +1,15 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { MongoObjectIdScalar } from './mongoObjectId.scalar';
 import { Types } from 'mongoose';
+
+@ObjectType()
+class Votes {
+  @Field(() => Int)
+  totalVotes: number;
+
+  @Field(() => [MongoObjectIdScalar])
+  voters: Types.ObjectId[];
+}
 
 @ObjectType()
 export class Post {
@@ -18,4 +27,10 @@ export class Post {
 
   @Field({ description: 'The category of the post' })
   category: string;
+
+  @Field(() => Votes)
+  upvotes: Votes;
+
+  @Field(() => Votes)
+  downvotes: Votes;
 }
