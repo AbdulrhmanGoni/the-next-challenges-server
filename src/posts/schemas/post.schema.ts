@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { PostThumbnailInterface } from '../interfaces';
 
 @Schema({ versionKey: false, _id: false })
 class Votes {
@@ -8,6 +9,12 @@ class Votes {
 
   @Prop({ type: [Types.ObjectId], required: true })
   voters: Types.ObjectId[];
+}
+
+@Schema({ versionKey: false, _id: false })
+class Thumbnail implements PostThumbnailInterface {
+  @Prop({ required: true })
+  src: string;
 }
 
 @Schema({ versionKey: false })
@@ -20,6 +27,9 @@ export class Post {
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
   authorId: Types.ObjectId;
+
+  @Prop({ type: Thumbnail })
+  thumbnail: Thumbnail;
 
   @Prop({ required: true })
   category: string;
