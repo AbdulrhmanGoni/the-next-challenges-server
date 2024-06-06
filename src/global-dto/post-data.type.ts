@@ -37,6 +37,9 @@ export class Post {
   @Field({ description: 'The category of the post' })
   category: string;
 
+  @Field(() => [String], { defaultValue: [] })
+  tags: string[];
+
   @Field(() => Votes)
   upvotes: Votes;
 

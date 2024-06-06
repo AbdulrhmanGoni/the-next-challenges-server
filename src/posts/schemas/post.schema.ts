@@ -34,6 +34,9 @@ export class Post {
   @Prop({ required: true })
   category: string;
 
+  @Prop({ default: [] })
+  tags: string[];
+
   @Prop({ default: { totalVotes: 0, voters: [] } })
   upvotes: Votes;
 

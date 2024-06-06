@@ -31,6 +31,9 @@ export class EditPostOptions {
 
   @Field({ nullable: true })
   category: string;
+
+  @Field({ nullable: true })
+  tags: EditTagsOptions;
 }
 
 @InputType()
