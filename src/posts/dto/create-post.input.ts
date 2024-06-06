@@ -20,4 +20,7 @@ export class CreatePostInput {
 
   @Field({ nullable: true })
   thumbnail: CreatePostThumbnail;
+
+  @Field(() => [String], { nullable: true })
+  tags: string[];
 }
