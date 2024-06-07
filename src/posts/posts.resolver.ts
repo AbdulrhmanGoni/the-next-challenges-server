@@ -21,6 +21,7 @@ import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 
 @Resolver(() => Post)
+@UseGuards(GqlJwtAuthGuard)
 export class PostsResolver {
   constructor(
     private postsService: PostsService,
@@ -28,7 +29,6 @@ export class PostsResolver {
   ) {}
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlJwtAuthGuard)
   async createPost(
     @Args('createPostInput') createPostInput: CreatePostInput,
     @CurrentUser() user: AuthorizedUser,
@@ -57,7 +57,6 @@ export class PostsResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlJwtAuthGuard)
   async editPost(
     @Args('editPostInput') editPostInput: EditPostInput,
     @CurrentUser() user: AuthorizedUser,
@@ -70,7 +69,6 @@ export class PostsResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlJwtAuthGuard)
   async deletePost(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @CurrentUser() user: AuthorizedUser,
@@ -79,7 +77,6 @@ export class PostsResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlJwtAuthGuard)
   async upvotePost(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @CurrentUser() user: AuthorizedUser,
@@ -88,7 +85,6 @@ export class PostsResolver {
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlJwtAuthGuard)
   async downvotePost(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @CurrentUser() user: AuthorizedUser,
