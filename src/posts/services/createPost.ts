@@ -1,8 +1,9 @@
-import { ClientSession, Connection, Model, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreatePostInput } from '../dto/create-post.input';
 import { Post } from '../schemas/post.schema';
 import { InternalServerErrorException } from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
+import createTransactionSession from '../../global/utils/createTransactionSession';
 
 export default async function createPost(
   post: CreatePostInput,
@@ -10,15 +11,8 @@ export default async function createPost(
 ) {
   const PostModel = this.PostModel as Model<Post>;
   const usersService = this.UsersService as UsersService;
-  const mongodbConnection = this.connection as Connection;
 
-  let session: ClientSession;
-  try {
-    session = await mongodbConnection.startSession();
-    session.startTransaction();
-  } catch {
-    throw new InternalServerErrorException();
-  }
+  const session = await createTransactionSession.bind(this)();
 
   try {
     const newPost = new PostModel({ ...post, authorId: userId });
