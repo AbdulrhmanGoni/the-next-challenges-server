@@ -1,10 +1,22 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { PostThumbnailInterface } from '../interfaces';
+import { PostResourceInterface, PostThumbnailInterface } from '../interfaces';
 
 @InputType()
 class CreatePostThumbnail implements PostThumbnailInterface {
   @Field()
   src: string;
+}
+
+@InputType()
+class CreatePostPostResource implements PostResourceInterface {
+  @Field()
+  title: string;
+
+  @Field()
+  type: string;
+
+  @Field()
+  link: string;
 }
 
 @InputType()
@@ -23,4 +35,7 @@ export class CreatePostInput {
 
   @Field(() => [String], { nullable: true })
   tags: string[];
+
+  @Field(() => [CreatePostPostResource])
+  resources: CreatePostPostResource[];
 }
