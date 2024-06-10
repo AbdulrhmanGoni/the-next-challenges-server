@@ -1,7 +1,10 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { MongoObjectIdScalar } from './mongoObjectId.scalar';
 import { Types } from 'mongoose';
-import { PostThumbnailInterface } from '../posts/interfaces';
+import {
+  PostResourceInterface,
+  PostThumbnailInterface,
+} from '../posts/interfaces';
 
 @ObjectType()
 class Votes {
@@ -15,6 +18,18 @@ class Votes {
 @ObjectType({ implements: () => [PostThumbnailInterface] })
 class PostThumbnail implements PostThumbnailInterface {
   src: string;
+}
+
+@ObjectType({ implements: () => [PostThumbnailInterface] })
+class PostResource implements PostResourceInterface {
+  @Field()
+  title: string;
+
+  @Field()
+  type: string;
+
+  @Field()
+  link: string;
 }
 
 @ObjectType()
@@ -45,4 +60,7 @@ export class Post {
 
   @Field(() => Votes)
   downvotes: Votes;
+
+  @Field(() => [PostResource])
+  resources: PostResource[];
 }
