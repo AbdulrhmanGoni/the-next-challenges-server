@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { PostThumbnailInterface } from '../interfaces';
+import { PostResourceInterface, PostThumbnailInterface } from '../interfaces';
 
 @Schema({ versionKey: false, _id: false })
 class Votes {
@@ -15,6 +15,18 @@ class Votes {
 class Thumbnail implements PostThumbnailInterface {
   @Prop({ required: true })
   src: string;
+}
+
+@Schema({ versionKey: false })
+class Resource implements PostResourceInterface {
+  @Prop({ required: true })
+  title: string;
+
+  @Prop({ required: true })
+  type: string;
+
+  @Prop({ required: true })
+  link: string;
 }
 
 @Schema({ versionKey: false })
@@ -42,6 +54,9 @@ export class Post {
 
   @Prop({ default: { totalVotes: 0, voters: [] } })
   downvotes: Votes;
+
+  @Prop({ type: [Resource], default: [] })
+  resources: Resource[];
 }
 
 export type PostDocument = HydratedDocument<Post>;
