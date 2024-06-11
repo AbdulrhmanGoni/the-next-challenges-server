@@ -63,4 +63,16 @@ export class UsersResolver {
   ) {
     return await this.usersService.updateUserData(user.id, updateUserDataInput);
   }
+
+  @Query(() => [Post])
+  async getUserBookmarks(
+    @Args('paginationOptions', {
+      nullable: true,
+      defaultValue: { pageSize: 5, page: 1 },
+    })
+    paginationOptions: PaginationOptions,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.usersService.getUserBookmarks(user.id, paginationOptions);
+  }
 }
