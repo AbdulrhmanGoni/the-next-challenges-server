@@ -21,4 +21,9 @@ export class User {
     defaultValue: 'user',
   })
   role: string;
+
+  @Field(() => MongoObjectIdScalar, {
+    description: 'The posts that the user has saved them',
+  })
+  bookmarks: [Types.ObjectId];
 }

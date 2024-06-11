@@ -21,6 +21,9 @@ export class User {
 
   @Prop({ type: [Types.ObjectId], ref: 'Post', default: [] })
   posts: Types.ObjectId[];
+
+  @Prop({ type: [Types.ObjectId], ref: 'Post', default: [] })
+  bookmarks: Types.ObjectId[];
 }
 
 export type UserDocument = HydratedDocument<User>;
