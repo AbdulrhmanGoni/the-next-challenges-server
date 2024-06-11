@@ -6,6 +6,7 @@ import {
   addPost,
   removePost,
   addPostToBookmark,
+  removePostFromBookmark,
 } from './services';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -26,4 +27,6 @@ export class UsersService {
   removePost = removePost;
 
   addPostToBookmark = addPostToBookmark;
+
+  removePostFromBookmark = removePostFromBookmark;
 }
