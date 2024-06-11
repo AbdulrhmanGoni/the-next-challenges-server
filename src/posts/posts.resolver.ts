@@ -91,4 +91,20 @@ export class PostsResolver {
   ) {
     return await this.postsService.downvotePost(postId, user.id);
   }
+
+  @Mutation(() => Boolean)
+  async bookmarkPost(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.usersService.addPostToBookmark(user.id, postId);
+  }
+
+  @Mutation(() => Boolean)
+  async unbookmarkPost(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return await this.usersService.removePostFromBookmark(user.id, postId);
+  }
 }
