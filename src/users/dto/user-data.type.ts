@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { MongoObjectIdScalar } from './mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
 
 @ObjectType()
