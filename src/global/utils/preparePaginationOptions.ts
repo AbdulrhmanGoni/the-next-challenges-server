@@ -1,4 +1,4 @@
-import { PaginationOptions } from '../../global-dto/pagination-options.dto';
+import { PaginationOptions } from '../dto/pagination-options.dto';
 
 const defaultPageSize = 5;
 const defaultPageNumber = 0;
