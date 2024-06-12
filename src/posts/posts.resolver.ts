@@ -7,15 +7,15 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
-import { Post } from '../global-dto/post-data.type';
+import { Post } from './dto/post-data.type';
 import { CreatePostInput } from './dto/create-post.input';
 import { EditPostInput } from './dto/update-post.input';
 import { SearchForPostInput } from './dto/search-for-post.input';
-import { User } from '../global-dto/user-data.type';
+import { User } from '../users/dto/user-data.type';
 import { UsersService } from '../users/users.service';
-import { PaginationOptions } from '../global-dto/pagination-options.dto';
+import { PaginationOptions } from '../global/dto/pagination-options.dto';
 import { Types } from 'mongoose';
-import { MongoObjectIdScalar } from '../global-dto/mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../global/dto/mongoObjectId.scalar';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';

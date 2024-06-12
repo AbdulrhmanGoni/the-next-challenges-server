@@ -3,7 +3,7 @@ import { join } from 'path';
 import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { MongoObjectIdScalar } from '../src/global-dto/mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../src/global/dto/mongoObjectId.scalar';
 import { UsersModule } from '../src/users/users.module';
 import { PostsModule } from '../src/posts/posts.module';
 import testingDatabaseURI from './testingDatabaseURI';

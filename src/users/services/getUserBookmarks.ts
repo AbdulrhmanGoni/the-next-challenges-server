@@ -1,5 +1,5 @@
 import { Model, Types } from 'mongoose';
-import { PaginationOptions } from '../../global-dto/pagination-options.dto';
+import { PaginationOptions } from '../../global/dto/pagination-options.dto';
 import { User } from '../schemas/user.schema';
 import preparePaginationOptions from '../../global/utils/preparePaginationOptions';
 import { InternalServerErrorException } from '@nestjs/common';

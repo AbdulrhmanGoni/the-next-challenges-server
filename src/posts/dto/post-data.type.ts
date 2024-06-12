@@ -1,10 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { MongoObjectIdScalar } from './mongoObjectId.scalar';
+import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
-import {
-  PostResourceInterface,
-  PostThumbnailInterface,
-} from '../posts/interfaces';
+import { PostResourceInterface, PostThumbnailInterface } from '../interfaces';
 
 @ObjectType()
 class Votes {
