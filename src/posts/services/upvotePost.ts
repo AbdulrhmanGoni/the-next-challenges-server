@@ -1,6 +1,7 @@
 import { Model, Types } from 'mongoose';
 import { Post } from '../schemas/post.schema';
 import { InternalServerErrorException } from '@nestjs/common';
+import setVoteQuery from '../../global/utils/setVoteQuery';
 
 export default async function upvotePost(
   postId: Types.ObjectId,
@@ -11,55 +12,7 @@ export default async function upvotePost(
   try {
     const { acknowledged, modifiedCount } = await PostModel.updateOne(
       { _id: postId },
-      [
-        {
-          $set: {
-            upvotes: {
-              $cond: {
-                if: { $in: [userId, '$upvotes.voters'] },
-                then: {
-                  voters: {
-                    $filter: {
-                      input: '$upvotes.voters',
-                      as: 'voterId',
-                      cond: { $ne: [userId, '$$voterId'] },
-                    },
-                  },
-                  totalVotes: {
-                    $sum: ['$upvotes.totalVotes', -1],
-                  },
-                },
-                else: {
-                  voters: {
-                    $concatArrays: ['$upvotes.voters', [userId]],
-                  },
-                  totalVotes: {
-                    $sum: ['$upvotes.totalVotes', 1],
-                  },
-                },
-              },
-            },
-            downvotes: {
-              $cond: {
-                if: { $in: [userId, '$downvotes.voters'] },
-                then: {
-                  voters: {
-                    $filter: {
-                      input: '$downvotes.voters',
-                      as: 'voterId',
-                      cond: { $ne: [userId, '$$voterId'] },
-                    },
-                  },
-                  totalVotes: {
-                    $sum: ['$downvotes.totalVotes', -1],
-                  },
-                },
-                else: '$downvotes',
-              },
-            },
-          },
-        },
-      ],
+      [setVoteQuery('upvote', userId)],
     );
 
     return acknowledged && !!modifiedCount;

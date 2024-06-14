@@ -1,6 +1,7 @@
 import { Model, Types } from 'mongoose';
 import { Post } from '../schemas/post.schema';
 import { InternalServerErrorException } from '@nestjs/common';
+import setVoteQuery from '../../global/utils/setVoteQuery';
 
 export default async function downvotePost(
   postId: Types.ObjectId,
@@ -11,55 +12,7 @@ export default async function downvotePost(
   try {
     const { acknowledged, modifiedCount } = await PostModel.updateOne(
       { _id: postId },
-      [
-        {
-          $set: {
-            downvotes: {
-              $cond: {
-                if: { $in: [userId, '$downvotes.voters'] },
-                then: {
-                  voters: {
-                    $filter: {
-                      input: '$downvotes.voters',
-                      as: 'voterId',
-                      cond: { $ne: [userId, '$$voterId'] },
-                    },
-                  },
-                  totalVotes: {
-                    $sum: ['$downvotes.totalVotes', -1],
-                  },
-                },
-                else: {
-                  voters: {
-                    $concatArrays: ['$downvotes.voters', [userId]],
-                  },
-                  totalVotes: {
-                    $sum: ['$downvotes.totalVotes', 1],
-                  },
-                },
-              },
-            },
-            upvotes: {
-              $cond: {
-                if: { $in: [userId, '$upvotes.voters'] },
-                then: {
-                  voters: {
-                    $filter: {
-                      input: '$upvotes.voters',
-                      as: 'voterId',
-                      cond: { $ne: [userId, '$$voterId'] },
-                    },
-                  },
-                  totalVotes: {
-                    $sum: ['$upvotes.totalVotes', -1],
-                  },
-                },
-                else: '$upvotes',
-              },
-            },
-          },
-        },
-      ],
+      [setVoteQuery('downvote', userId)],
     );
 
     return acknowledged && !!modifiedCount;
