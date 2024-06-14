@@ -2,6 +2,7 @@ import { Model, Types } from 'mongoose';
 import { EditPostOptions } from '../dto/update-post.input';
 import { Post } from '../schemas/post.schema';
 import { InternalServerErrorException } from '@nestjs/common';
+import createTagsUpdateQuery from './createTagsUpdateQuery';
 
 export default async function editPost(
   postId: Types.ObjectId,
@@ -9,13 +10,9 @@ export default async function editPost(
   editPostOptions: EditPostOptions,
 ) {
   const { tags, ...editOptions } = editPostOptions;
-
   const updateStage = { $set: editOptions };
 
-  const tagsUpdateQuery = createTagsUpdateQuery(
-    tags?.newTags,
-    tags?.removedTags,
-  );
+  const tagsUpdateQuery = createTagsUpdateQuery(tags);
   if (tagsUpdateQuery) {
     Object.assign(updateStage.$set, { tags: tagsUpdateQuery });
   }
@@ -30,40 +27,5 @@ export default async function editPost(
     return acknowledged && !!modifiedCount;
   } catch {
     throw new InternalServerErrorException();
-  }
-}
-
-function createTagsUpdateQuery(
-  newTags: EditPostOptions['tags']['newTags'] = [],
-  removedTags: EditPostOptions['tags']['removedTags'] = [],
-) {
-  const tagsUpdates = { $concatArrays: new Array() };
-
-  if (newTags.length || removedTags.length) {
-    if (removedTags.length) {
-      tagsUpdates.$concatArrays.push({
-        $filter: {
-          input: '$tags',
-          as: 'tag',
-          cond: { $not: [{ $in: ['$$tag', removedTags] }] },
-        },
-      });
-    } else {
-      tagsUpdates.$concatArrays.push('$tags');
-    }
-
-    if (newTags.length) {
-      tagsUpdates.$concatArrays.push({
-        $filter: {
-          input: newTags,
-          as: 'tag',
-          cond: { $not: [{ $in: ['$$tag', '$tags'] }] },
-        },
-      });
-    } else {
-      tagsUpdates.$concatArrays.push(newTags);
-    }
-
-    return tagsUpdates;
   }
 }
