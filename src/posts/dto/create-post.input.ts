@@ -8,7 +8,7 @@ class CreatePostThumbnail implements PostThumbnailInterface {
 }
 
 @InputType()
-class CreatePostPostResource implements PostResourceInterface {
+export class CreatePostPostResource implements PostResourceInterface {
   @Field()
   title: string;
 
