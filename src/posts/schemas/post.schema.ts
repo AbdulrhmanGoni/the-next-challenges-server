@@ -21,7 +21,7 @@ class Resource implements PostResourceInterface {
   link: string;
 }
 
-@Schema({ versionKey: false })
+@Schema({ versionKey: false, timestamps: true })
 export class Post {
   @Prop({ required: true })
   title: string;
