@@ -22,7 +22,7 @@ export class User {
   })
   role: string;
 
-  @Field(() => MongoObjectIdScalar, {
+  @Field(() => [MongoObjectIdScalar], {
     description: 'The posts that the user has saved them',
   })
   bookmarks: [Types.ObjectId];
