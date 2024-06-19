@@ -17,6 +17,9 @@ import { AuthModule } from './auth/auth.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       resolvers: { MongoObjectId: MongoObjectIdScalar },
+      buildSchemaOptions: {
+        dateScalarMode: 'timestamp',
+      },
     }),
     UsersModule,
     PostsModule,

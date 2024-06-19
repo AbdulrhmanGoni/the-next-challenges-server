@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, GraphQLTimestamp } from '@nestjs/graphql';
 import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
 import { PostResourceInterface, PostThumbnailInterface } from '../interfaces';
@@ -52,4 +52,7 @@ export class Post {
 
   @Field(() => [PostResource])
   resources: PostResource[];
+
+  @Field(() => GraphQLTimestamp, { name: 'publishedAt' })
+  createdAt: Date;
 }
