@@ -3,6 +3,8 @@ import {
   addCommentToPost,
   getPostComments,
   removeCommentFromPost,
+  upvotePostComment,
+  downvotePostComment,
 } from './services';
 import { Model } from 'mongoose';
 import { PostsComments } from './schemas/posts-comments.schema';
@@ -20,4 +22,8 @@ export class PostsCommentsService {
   getPostComments = getPostComments;
 
   removeCommentFromPost = removeCommentFromPost;
+
+  upvotePostComment = upvotePostComment;
+
+  downvotePostComment = downvotePostComment;
 }
