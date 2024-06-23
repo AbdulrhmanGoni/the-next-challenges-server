@@ -7,6 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongoObjectIdScalar } from './global/dto/mongoObjectId.scalar';
 import { AuthModule } from './auth/auth.module';
+import { PostsCommentsModule } from './post-comments/posts-comments.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     PostsModule,
     AuthModule,
+    PostsCommentsModule,
   ],
 })
 export class AppModule {}
