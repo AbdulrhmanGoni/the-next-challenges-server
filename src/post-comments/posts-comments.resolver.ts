@@ -1,7 +1,7 @@
 import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { Types } from 'mongoose';
-import { UseGuards } from '@nestjs/common';
+import { BadRequestException, UseGuards } from '@nestjs/common';
 import { MongoObjectIdScalar } from '../global/dto/mongoObjectId.scalar';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 import { PostsCommentsService } from './posts-comments.service';
@@ -50,5 +50,29 @@ export class PostsCommentsResolver {
       postId,
       paginationOptions,
     );
+  }
+
+  @Mutation(() => Boolean)
+  async votePostComment(
+    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
+    @Args('commentId', { type: () => MongoObjectIdScalar })
+    commentId: Types.ObjectId,
+    @Args('voteType') voteType: 'upvote' | 'downvote',
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    const args: [Types.ObjectId, Types.ObjectId, Types.ObjectId] = [
+      postId,
+      commentId,
+      user.id,
+    ];
+    if (voteType === 'upvote') {
+      return await this.PostsCommentsService.upvotePostComment(...args);
+    } else if (voteType === 'downvote') {
+      return await this.PostsCommentsService.downvotePostComment(...args);
+    } else {
+      throw new BadRequestException(
+        `Unknown vote type (${voteType}), only "upvote" and "downvote" avalable`,
+      );
+    }
   }
 }
