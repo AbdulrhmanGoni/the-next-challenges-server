@@ -12,6 +12,9 @@ type User {
   """The headline of the user"""
   headline: String!
 
+  """The profile picture of the user"""
+  avatar: String
+
   """The email of the user"""
   email: String!
 
@@ -140,6 +143,7 @@ type Mutation {
 input UpdateUserDataInput {
   fullName: String
   headline: String
+  avatar: String
 }
 
 input CreatePostInput {
