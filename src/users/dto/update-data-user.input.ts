@@ -7,4 +7,7 @@ export class UpdateUserDataInput {
 
   @Field({ nullable: true })
   headline?: string;
+
+  @Field({ nullable: true })
+  avatar: string;
 }
