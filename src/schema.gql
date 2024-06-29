@@ -3,36 +3,30 @@
 # ------------------------------------------------------
 
 type User {
-  """
-  The ID of the user
-  """
+  """The ID of the user"""
   id: MongoObjectId!
 
-  """
-  The full name of the user
-  """
+  """The full name of the user"""
   fullName: String!
 
-  """
-  The headline of the user
-  """
+  """The headline of the user"""
   headline: String!
 
-  """
-  The email of the user
-  """
+  """The profile picture of the user"""
+  avatar: String
+
+  """The email of the user"""
   email: String!
 
-  """
-  The role of the user
-  """
+  """The role of the user"""
   role: String!
+
+  """The posts that the user has saved them"""
+  bookmarks: [MongoObjectId!]!
   posts(options: PaginationOptions): [Post!]
 }
 
-"""
-The `ObjectId` type of Mongo database documents `_id` field
-"""
+"""The `ObjectId` type of Mongo database documents `_id` field"""
 scalar MongoObjectId
 
 input PaginationOptions {
@@ -40,43 +34,82 @@ input PaginationOptions {
   pageSize: Int
 }
 
+type VoteType implements VoteInterface {
+  totalVotes: Int!
+  voters: [MongoObjectId!]!
+}
+
+interface VoteInterface {
+  totalVotes: Int!
+  voters: [MongoObjectId!]!
+}
+
+type PostThumbnail implements PostThumbnailInterface {
+  src: String!
+}
+
+interface PostThumbnailInterface {
+  src: String!
+}
+
+type PostResource implements PostThumbnailInterface {
+  src: String!
+  title: String!
+  type: String!
+  link: String!
+}
+
 type Post {
-  """
-  The ID of the post
-  """
+  """The ID of the post"""
   id: MongoObjectId!
 
-  """
-  The title of the post
-  """
+  """The title of the post"""
   title: String!
 
-  """
-  The body or the content of the post
-  """
+  """The thumbnail of the post"""
+  thumbnail: PostThumbnail
+
+  """The body or the content of the post"""
   body: String!
 
-  """
-  The ID of post's author
-  """
+  """The ID of post's author"""
   authorId: MongoObjectId!
 
-  """
-  The category of the post
-  """
+  """The category of the post"""
   category: String!
+  tags: [String!]!
+  upvotes: VoteType!
+  downvotes: VoteType!
+  resources: [PostResource!]!
+  publishedAt: Timestamp!
   author: User
 }
+
+"""
+`Date` type as integer. Type represents date and time as number of milliseconds from start of UNIX epoch.
+"""
+scalar Timestamp
 
 type JWT {
   accessToken: String!
 }
 
+type PostComment {
+  id: MongoObjectId!
+  commenterId: MongoObjectId!
+  comment: String!
+  upvotes: VoteType!
+  downvotes: VoteType!
+}
+
 type Query {
+  userData: User
   user(userId: MongoObjectId!): User
   users(searchQuery: SearchForUserInput!, options: PaginationOptions): [User!]!
+  getUserBookmarks(paginationOptions: PaginationOptions = {page: 1, pageSize: 5}): [Post!]!
   posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
   post(postId: MongoObjectId!): Post
+  getPostComments(postId: MongoObjectId!, paginationOptions: PaginationOptions!): [PostComment!]!
 }
 
 input SearchForUserInput {
@@ -95,35 +128,77 @@ type Mutation {
   updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
   createPost(createPostInput: CreatePostInput!): Boolean!
   editPost(editPostInput: EditPostInput!): Boolean!
+  deletePost(postId: MongoObjectId!): Boolean!
+  upvotePost(postId: MongoObjectId!): Boolean!
+  downvotePost(postId: MongoObjectId!): Boolean!
+  bookmarkPost(postId: MongoObjectId!): Boolean!
+  unbookmarkPost(postId: MongoObjectId!): Boolean!
   logInUser(logInUserInput: LogInUserInput!): JWT
   signUpUser(signUpUserInput: SignUpUserInput!): JWT
+  addCommentToPost(postId: MongoObjectId!, comment: String!): Boolean!
+  removeCommentFromPost(postId: MongoObjectId!, commentId: MongoObjectId!): Boolean!
+  votePostComment(postId: MongoObjectId!, commentId: MongoObjectId!, voteType: String!): Boolean!
 }
 
 input UpdateUserDataInput {
-  userId: MongoObjectId!
-  updateOptions: UpdateUserDataOptions!
-}
-
-input UpdateUserDataOptions {
   fullName: String
   headline: String
+  avatar: String
 }
 
 input CreatePostInput {
   title: String!
   body: String!
   category: String!
+  thumbnail: CreatePostThumbnail
+  tags: [String!]
+  resources: [CreatePostPostResource!]!
+}
+
+input CreatePostThumbnail {
+  src: String!
+}
+
+input CreatePostPostResource {
+  title: String!
+  type: String!
+  link: String!
 }
 
 input EditPostInput {
   postId: MongoObjectId!
-  updateOptions: EditPostOptions!
+  editOptions: EditPostOptions!
 }
 
 input EditPostOptions {
   title: String
   body: String
+  thumbnail: EditPostThumbnail
   category: String
+  tags: EditTagsOptions
+  resources: UpdateResourcesOptions
+}
+
+input EditPostThumbnail {
+  src: String!
+}
+
+input EditTagsOptions {
+  newTags: [String!]
+  removedTags: [String!]
+}
+
+input UpdateResourcesOptions {
+  newResources: [CreatePostPostResource!]
+  removedResources: [MongoObjectId!]
+  updatedResources: [UpdateResource!]
+}
+
+input UpdateResource {
+  _id: MongoObjectId!
+  title: String
+  link: String
+  type: String
 }
 
 input LogInUserInput {
@@ -132,23 +207,15 @@ input LogInUserInput {
 }
 
 input SignUpUserInput {
-  """
-  The full name of the user
-  """
+  """The full name of the user"""
   fullName: String!
 
-  """
-  The headline of the user
-  """
+  """The headline of the user"""
   headline: String!
 
-  """
-  The email of the user
-  """
+  """The email of the user"""
   email: String!
 
-  """
-  The password of the user
-  """
+  """The password of the user"""
   password: String!
 }
