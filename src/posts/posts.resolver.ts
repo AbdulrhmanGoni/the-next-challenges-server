@@ -107,4 +107,17 @@ export class PostsResolver {
   ) {
     return await this.usersService.removePostFromBookmark(user.id, postId);
   }
+
+  @ResolveField(() => String, { name: 'userVote', nullable: true })
+  async userVote(@CurrentUser() user: AuthorizedUser, @Parent() post: Post) {
+    if (post.upvotes.voters.some((voterId) => user.id.equals(voterId))) {
+      return 'upvote';
+    }
+
+    if (post.downvotes.voters.some((voterId) => user.id.equals(voterId))) {
+      return 'downvote';
+    }
+
+    return null;
+  }
 }

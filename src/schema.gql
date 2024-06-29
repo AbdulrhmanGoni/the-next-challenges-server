@@ -83,6 +83,7 @@ type Post {
   resources: [PostResource!]!
   publishedAt: Timestamp!
   author: User
+  userVote: String
 }
 
 """
