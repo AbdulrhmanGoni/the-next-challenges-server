@@ -10,6 +10,7 @@ import {
   deletePost,
   upvotePost,
   downvotePost,
+  incrementPostCommentsCount,
 } from './services';
 import { UsersService } from '../users/users.service';
 
@@ -34,4 +35,6 @@ export class PostsService {
   upvotePost = upvotePost;
 
   downvotePost = downvotePost;
+
+  incrementPostCommentsCount = incrementPostCommentsCount;
 }
