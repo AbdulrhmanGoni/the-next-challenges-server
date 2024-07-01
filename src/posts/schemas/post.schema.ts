@@ -49,6 +49,9 @@ export class Post {
 
   @Prop({ type: [Resource], default: [] })
   resources: Resource[];
+
+  @Prop({ type: Number, default: 0 })
+  commentsCount: number;
 }
 
 export type PostDocument = HydratedDocument<Post>;

@@ -82,6 +82,7 @@ type Post {
   downvotes: VoteType!
   resources: [PostResource!]!
   publishedAt: Timestamp!
+  commentsCount: Int!
   author: User
   userVote: String
 }
