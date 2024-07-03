@@ -1,4 +1,3 @@
-import { JwtService } from '@nestjs/jwt';
 import { LogInUserInput } from '../dto/log-in-user.input';
 import { UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
