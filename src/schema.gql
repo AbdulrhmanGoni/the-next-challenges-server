@@ -6,8 +6,11 @@ type User {
   """The ID of the user"""
   id: MongoObjectId!
 
-  """The full name of the user"""
-  fullName: String!
+  """The firs name of the user"""
+  firstName: String!
+
+  """The last name of the user"""
+  lastName: String!
 
   """The headline of the user"""
   headline: String!
@@ -117,7 +120,8 @@ type Query {
 input SearchForUserInput {
   id: MongoObjectId
   email: String
-  fullName: String
+  firstName: String
+  lastName: String
 }
 
 input SearchForPostInput {
@@ -143,7 +147,8 @@ type Mutation {
 }
 
 input UpdateUserDataInput {
-  fullName: String
+  firstName: String
+  lastName: String
   headline: String
   avatar: String
 }
@@ -209,8 +214,11 @@ input LogInUserInput {
 }
 
 input SignUpUserInput {
-  """The full name of the user"""
-  fullName: String!
+  """The firs name of the user"""
+  firstName: String!
+
+  """The last name of the user"""
+  lastName: String!
 
   """The headline of the user"""
   headline: String!

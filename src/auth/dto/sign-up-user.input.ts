@@ -2,8 +2,11 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class SignUpUserInput {
-  @Field({ description: 'The full name of the user' })
-  fullName: string;
+  @Field({ description: 'The firs name of the user' })
+  firstName: string;
+
+  @Field({ description: 'The last name of the user' })
+  lastName: string;
 
   @Field({ description: 'The headline of the user' })
   headline: string;
