@@ -11,5 +11,8 @@ export class SearchForUserInput {
   email?: string;
 
   @Field({ nullable: true })
-  fullName?: string;
+  firstName?: string;
+
+  @Field({ nullable: true })
+  lastName?: string;
 }
