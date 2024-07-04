@@ -6,6 +6,7 @@ import {
   PostsCommentsSchema,
 } from './schemas/posts-comments.schema';
 import { PostsCommentsResolver } from './posts-comments.resolver';
+import { PostsModule } from '../posts/posts.module';
 
 @Module({
   providers: [PostsCommentsService, PostsCommentsResolver],
@@ -13,6 +14,7 @@ import { PostsCommentsResolver } from './posts-comments.resolver';
     MongooseModule.forFeature([
       { name: PostsComments.name, schema: PostsCommentsSchema },
     ]),
+    PostsModule,
   ],
 })
 export class PostsCommentsModule {}

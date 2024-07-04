@@ -9,12 +9,14 @@ import {
 import { Model } from 'mongoose';
 import { PostsComments } from './schemas/posts-comments.schema';
 import { InjectModel } from '@nestjs/mongoose';
+import { PostsService } from '../posts/posts.service';
 
 @Injectable()
 export class PostsCommentsService {
   constructor(
     @InjectModel(PostsComments.name)
     private PostCommentsModel: Model<PostsComments>,
+    private PostsService: PostsService,
   ) {}
 
   addCommentToPost = addCommentToPost;
