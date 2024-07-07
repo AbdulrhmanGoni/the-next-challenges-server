@@ -13,7 +13,7 @@ export default async function addCommentToPost(
     const PostCommentsModel = this.PostCommentsModel as Model<PostsComments>;
     const PostsService = this.PostsService as PostsService;
 
-    const session = await createTransactionSession();
+    const session = await createTransactionSession.bind(this)();
 
     const newComment = new PostComment();
     newComment.commenterId = userId;

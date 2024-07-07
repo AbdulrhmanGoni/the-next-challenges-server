@@ -6,9 +6,9 @@ import {
   upvotePostComment,
   downvotePostComment,
 } from './services';
-import { Model } from 'mongoose';
+import { Connection, Model } from 'mongoose';
 import { PostsComments } from './schemas/posts-comments.schema';
-import { InjectModel } from '@nestjs/mongoose';
+import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { PostsService } from '../posts/posts.service';
 
 @Injectable()
@@ -17,6 +17,7 @@ export class PostsCommentsService {
     @InjectModel(PostsComments.name)
     private PostCommentsModel: Model<PostsComments>,
     private PostsService: PostsService,
+    @InjectConnection() private connection: Connection,
   ) {}
 
   addCommentToPost = addCommentToPost;
