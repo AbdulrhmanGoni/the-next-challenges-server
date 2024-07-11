@@ -20,29 +20,34 @@ export default async function addCommentToPost(
     newComment.id = new Types.ObjectId();
     newComment.comment = comment;
 
-    const { acknowledged, matchedCount, modifiedCount } =
-      await PostCommentsModel.updateOne(
-        { _id: postId },
-        { $push: { comments: newComment } },
-        { session },
-      );
+    let commentAddedSuccessfully = false;
 
-    if (!matchedCount) {
-      return await PostCommentsModel.create(
-        {
-          comments: [newComment],
-          _id: postId,
-        },
+    const postCommentsUpdate = await PostCommentsModel.updateOne(
+      { _id: postId },
+      { $push: { comments: newComment } },
+      { session },
+    );
+
+    commentAddedSuccessfully =
+      postCommentsUpdate.acknowledged && !!postCommentsUpdate.modifiedCount;
+
+    if (!postCommentsUpdate.matchedCount) {
+      commentAddedSuccessfully = await PostCommentsModel.create(
+        [
+          {
+            comments: [newComment],
+            _id: postId,
+          },
+        ],
         { session },
       ).then(() => true);
     }
 
     if (
-      acknowledged &&
-      !!modifiedCount &&
+      commentAddedSuccessfully &&
       (await PostsService.incrementPostCommentsCount(postId, session))
     ) {
-      return await session.commitTransaction().then(() => true);
+      return await session.commitTransaction().then(() => newComment.id);
     } else {
       await session.abortTransaction();
     }
