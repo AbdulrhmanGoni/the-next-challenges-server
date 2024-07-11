@@ -3,33 +3,51 @@
 # ------------------------------------------------------
 
 type User {
-  """The ID of the user"""
+  """
+  The ID of the user
+  """
   id: MongoObjectId!
 
-  """The firs name of the user"""
+  """
+  The firs name of the user
+  """
   firstName: String!
 
-  """The last name of the user"""
+  """
+  The last name of the user
+  """
   lastName: String!
 
-  """The headline of the user"""
+  """
+  The headline of the user
+  """
   headline: String!
 
-  """The profile picture of the user"""
+  """
+  The profile picture of the user
+  """
   avatar: String
 
-  """The email of the user"""
+  """
+  The email of the user
+  """
   email: String!
 
-  """The role of the user"""
+  """
+  The role of the user
+  """
   role: String!
 
-  """The posts that the user has saved them"""
+  """
+  The posts that the user has saved them
+  """
   bookmarks: [MongoObjectId!]!
   posts(options: PaginationOptions): [Post!]
 }
 
-"""The `ObjectId` type of Mongo database documents `_id` field"""
+"""
+The `ObjectId` type of Mongo database documents `_id` field
+"""
 scalar MongoObjectId
 
 input PaginationOptions {
@@ -63,22 +81,34 @@ type PostResource implements PostThumbnailInterface {
 }
 
 type Post {
-  """The ID of the post"""
+  """
+  The ID of the post
+  """
   id: MongoObjectId!
 
-  """The title of the post"""
+  """
+  The title of the post
+  """
   title: String!
 
-  """The thumbnail of the post"""
+  """
+  The thumbnail of the post
+  """
   thumbnail: PostThumbnail
 
-  """The body or the content of the post"""
+  """
+  The body or the content of the post
+  """
   body: String!
 
-  """The ID of post's author"""
+  """
+  The ID of post's author
+  """
   authorId: MongoObjectId!
 
-  """The category of the post"""
+  """
+  The category of the post
+  """
   category: String!
   tags: [String!]!
   upvotes: VoteType!
@@ -107,14 +137,24 @@ type PostComment {
   downvotes: VoteType!
 }
 
+type PostCommentsPaginationResponse {
+  isThereMore: Boolean!
+  comments: [PostComment!]!
+}
+
 type Query {
   userData: User
   user(userId: MongoObjectId!): User
   users(searchQuery: SearchForUserInput!, options: PaginationOptions): [User!]!
-  getUserBookmarks(paginationOptions: PaginationOptions = {page: 1, pageSize: 5}): [Post!]!
+  getUserBookmarks(
+    paginationOptions: PaginationOptions = { page: 1, pageSize: 5 }
+  ): [Post!]!
   posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
   post(postId: MongoObjectId!): Post
-  getPostComments(postId: MongoObjectId!, paginationOptions: PaginationOptions!): [PostComment!]!
+  getPostComments(
+    postId: MongoObjectId!
+    paginationOptions: PaginationOptions!
+  ): PostCommentsPaginationResponse!
 }
 
 input SearchForUserInput {
@@ -141,9 +181,16 @@ type Mutation {
   unbookmarkPost(postId: MongoObjectId!): Boolean!
   logInUser(logInUserInput: LogInUserInput!): JWT
   signUpUser(signUpUserInput: SignUpUserInput!): JWT
-  addCommentToPost(postId: MongoObjectId!, comment: String!): Boolean!
-  removeCommentFromPost(postId: MongoObjectId!, commentId: MongoObjectId!): Boolean!
-  votePostComment(postId: MongoObjectId!, commentId: MongoObjectId!, voteType: String!): Boolean!
+  addCommentToPost(postId: MongoObjectId!, comment: String!): String!
+  removeCommentFromPost(
+    postId: MongoObjectId!
+    commentId: MongoObjectId!
+  ): Boolean!
+  votePostComment(
+    postId: MongoObjectId!
+    commentId: MongoObjectId!
+    voteType: String!
+  ): Boolean!
 }
 
 input UpdateUserDataInput {
@@ -214,18 +261,28 @@ input LogInUserInput {
 }
 
 input SignUpUserInput {
-  """The firs name of the user"""
+  """
+  The firs name of the user
+  """
   firstName: String!
 
-  """The last name of the user"""
+  """
+  The last name of the user
+  """
   lastName: String!
 
-  """The headline of the user"""
+  """
+  The headline of the user
+  """
   headline: String!
 
-  """The email of the user"""
+  """
+  The email of the user
+  """
   email: String!
 
-  """The password of the user"""
+  """
+  The password of the user
+  """
   password: String!
 }
