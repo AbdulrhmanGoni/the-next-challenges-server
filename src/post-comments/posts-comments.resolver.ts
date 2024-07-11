@@ -6,15 +6,15 @@ import { MongoObjectIdScalar } from '../global/dto/mongoObjectId.scalar';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 import { PostsCommentsService } from './posts-comments.service';
 import { PostsComments } from './schemas/posts-comments.schema';
-import { PostComment } from './dto/comment.type';
 import { PaginationOptions } from '../global/dto/pagination-options.dto';
+import { PostCommentsPaginationResponse } from './dto/comments-pagination-response.type';
 
 @Resolver(() => PostsComments)
 @UseGuards(GqlJwtAuthGuard)
 export class PostsCommentsResolver {
   constructor(private PostsCommentsService: PostsCommentsService) {}
 
-  @Mutation(() => Boolean)
+  @Mutation(() => String)
   async addCommentToPost(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @Args('comment') comment: string,
@@ -41,7 +41,7 @@ export class PostsCommentsResolver {
     );
   }
 
-  @Query(() => [PostComment])
+  @Query(() => PostCommentsPaginationResponse)
   async getPostComments(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @Args('paginationOptions') paginationOptions: PaginationOptions,
