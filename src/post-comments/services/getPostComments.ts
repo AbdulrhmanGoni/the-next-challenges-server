@@ -18,7 +18,20 @@ export default async function getPostComments(
       {
         $project: {
           _id: false,
-          comments: { $slice: ['$comments', skip, limit] },
+          comments: {
+            $map: {
+              input: { $slice: ['$comments', skip, limit] },
+              as: 'comment',
+              in: {
+                id: '$$comment.id',
+                comment: '$$comment.comment',
+                commenterId: '$$comment.commenterId',
+                createdAt: '$$comment.createdAt',
+                upvotes: '$$comment.upvotes.totalVotes',
+                downvotes: '$$comment.downvotes.totalVotes',
+              },
+            },
+          },
           isThereMore: {
             $eq: [
               {

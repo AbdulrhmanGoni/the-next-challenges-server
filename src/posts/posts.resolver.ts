@@ -5,6 +5,7 @@ import {
   Args,
   ResolveField,
   Parent,
+  Int,
 } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
 import { Post } from './dto/post-data.type';
@@ -119,5 +120,15 @@ export class PostsResolver {
     }
 
     return null;
+  }
+
+  @ResolveField(() => Int, { name: 'upvotes', defaultValue: 0 })
+  async getPostUpvotesCount(@Parent() post: Post) {
+    return post.upvotes.totalVotes;
+  }
+
+  @ResolveField(() => Int, { name: 'downvotes', defaultValue: 0 })
+  async getPostDownvotesCount(@Parent() post: Post) {
+    return post.upvotes.totalVotes;
   }
 }
