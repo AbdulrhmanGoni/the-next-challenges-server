@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, GraphQLTimestamp, Int, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
 
@@ -12,6 +12,9 @@ export class PostComment {
 
   @Field()
   comment: string;
+
+  @Field(() => GraphQLTimestamp, { nullable: true })
+  createdAt: Date;
 
   @Field(() => Int)
   upvotes: number;
