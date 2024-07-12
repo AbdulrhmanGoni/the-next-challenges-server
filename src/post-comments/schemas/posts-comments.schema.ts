@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { VotesSchema } from '../../global/schemas/vote.schema';
 
-@Schema({ versionKey: false, _id: false, timestamps: true })
+@Schema({ versionKey: false, _id: false, timestamps: { updatedAt: false } })
 export class PostComment {
   @Prop({ type: Types.ObjectId, required: true })
   id: Types.ObjectId;
