@@ -1,7 +1,6 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
-import { VoteType } from '../../global/dto/vote.type';
 
 @ObjectType()
 export class PostComment {
@@ -14,9 +13,9 @@ export class PostComment {
   @Field()
   comment: string;
 
-  @Field(() => VoteType)
-  upvotes: VoteType;
+  @Field(() => Int)
+  upvotes: number;
 
-  @Field(() => VoteType)
-  downvotes: VoteType;
+  @Field(() => Int)
+  downvotes: number;
 }
