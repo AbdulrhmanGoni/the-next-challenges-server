@@ -129,6 +129,6 @@ export class PostsResolver {
 
   @ResolveField(() => Int, { name: 'downvotes', defaultValue: 0 })
   async getPostDownvotesCount(@Parent() post: Post) {
-    return post.upvotes.totalVotes;
+    return post.downvotes.totalVotes;
   }
 }
