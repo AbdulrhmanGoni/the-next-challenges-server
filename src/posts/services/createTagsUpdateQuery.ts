@@ -3,7 +3,9 @@ import { EditPostOptions } from '../dto/update-post.input';
 export default function createTagsUpdateQuery(
   updateTags: EditPostOptions['tags'],
 ) {
-  const tagsUpdates = { $concatArrays: [] },
+  const tagsUpdates: {
+      $concatArrays: (object | string)[];
+    } = { $concatArrays: [] },
     { newTags = [], removedTags = [] } = updateTags || {};
 
   if (newTags.length || removedTags.length) {
