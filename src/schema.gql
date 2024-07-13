@@ -111,8 +111,8 @@ type Post {
   """
   category: String!
   tags: [String!]!
-  upvotes: VoteType!
-  downvotes: VoteType!
+  upvotes: Int!
+  downvotes: Int!
   resources: [PostResource!]!
   publishedAt: Timestamp!
   commentsCount: Int!
@@ -133,8 +133,9 @@ type PostComment {
   id: MongoObjectId!
   commenterId: MongoObjectId!
   comment: String!
-  upvotes: VoteType!
-  downvotes: VoteType!
+  createdAt: Timestamp
+  upvotes: Int!
+  downvotes: Int!
 }
 
 type PostCommentsPaginationResponse {
