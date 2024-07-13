@@ -16,7 +16,7 @@ export default async function incrementPostCommentsCount(
     );
 
     return acknowledged && !!modifiedCount;
-  } catch (error) {
+  } catch {
     throw new InternalServerErrorException();
   }
 }

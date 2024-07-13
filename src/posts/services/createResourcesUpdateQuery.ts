@@ -4,7 +4,7 @@ import { EditPostOptions } from '../dto/update-post.input';
 export default function createResourcesUpdateQuery(
   updateResources: EditPostOptions['resources'],
 ) {
-  const resourcesUpdate = { $concatArrays: new Array() },
+  const resourcesUpdate = { $concatArrays: [] },
     {
       newResources = [],
       removedResources = [],
