@@ -98,15 +98,7 @@ export class PostsResolver {
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @CurrentUser() user: AuthorizedUser,
   ) {
-    return await this.usersService.addPostToBookmark(user.id, postId);
-  }
-
-  @Mutation(() => Boolean)
-  async unbookmarkPost(
-    @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
-    @CurrentUser() user: AuthorizedUser,
-  ) {
-    return await this.usersService.removePostFromBookmark(user.id, postId);
+    return await this.usersService.bookmarkPost(user.id, postId);
   }
 
   @ResolveField(() => String, { name: 'userVote', nullable: true })
@@ -120,6 +112,11 @@ export class PostsResolver {
     }
 
     return null;
+  }
+
+  @Query(() => [Post], { name: 'userFeed' })
+  async userFeed(@CurrentUser() user: AuthorizedUser) {
+    return this.postsService.findPosts();
   }
 
   @ResolveField(() => Int, { name: 'upvotes', defaultValue: 0 })
