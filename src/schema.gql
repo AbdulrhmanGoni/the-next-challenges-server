@@ -125,6 +125,11 @@ type Post {
 """
 scalar Timestamp
 
+type UserBookmarksPaginationResponse {
+  areThereMorePosts: Boolean!
+  posts: [Post!]!
+}
+
 type JWT {
   accessToken: String!
 }
@@ -149,7 +154,7 @@ type Query {
   users(searchQuery: SearchForUserInput!, options: PaginationOptions): [User!]!
   getUserBookmarks(
     paginationOptions: PaginationOptions = { page: 1, pageSize: 5 }
-  ): [Post!]!
+  ): UserBookmarksPaginationResponse!
   posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
   post(postId: MongoObjectId!): Post
   getPostComments(
