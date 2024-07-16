@@ -19,6 +19,7 @@ import { Types } from 'mongoose';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
+import { UserBookmarksPaginationResponse } from './dto/user-bookmarks-pagination-response.type';
 
 @Resolver(() => User)
 @UseGuards(GqlJwtAuthGuard)
@@ -64,7 +65,7 @@ export class UsersResolver {
     return await this.usersService.updateUserData(user.id, updateUserDataInput);
   }
 
-  @Query(() => [Post])
+  @Query(() => UserBookmarksPaginationResponse)
   async getUserBookmarks(
     @Args('paginationOptions', {
       nullable: true,
