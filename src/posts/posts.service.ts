@@ -3,7 +3,7 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
 import { Connection, Model } from 'mongoose';
 import {
-  createPost,
+  publishPost,
   findPostById,
   findPosts,
   editPost,
@@ -22,7 +22,7 @@ export class PostsService {
     @InjectConnection() private connection: Connection,
   ) {}
 
-  createPost = createPost;
+  publishPost = publishPost;
 
   findPosts = findPosts;
 

@@ -5,7 +5,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
 import createTransactionSession from '../../global/utils/createTransactionSession';
 
-export default async function createPost(
+export default async function publishPost(
   post: CreatePostInput,
   userId: Types.ObjectId,
 ) {
