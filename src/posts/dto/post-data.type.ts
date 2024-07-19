@@ -6,6 +6,7 @@ import { VoteType } from '../../global/dto/vote.type';
 
 @ObjectType({ implements: () => [PostThumbnailInterface] })
 class PostThumbnail implements PostThumbnailInterface {
+  id: string;
   src: string;
 }
 

@@ -7,6 +7,9 @@ import { CreatePostPostResource } from './create-post.input';
 @InputType()
 class EditPostThumbnail implements PostThumbnailInterface {
   @Field()
+  id: string;
+
+  @Field()
   src: string;
 }
 

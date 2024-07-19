@@ -6,6 +6,9 @@ import { VotesSchema } from '../../global/schemas/vote.schema';
 @Schema({ versionKey: false, _id: false })
 class Thumbnail implements PostThumbnailInterface {
   @Prop({ required: true })
+  id: string;
+
+  @Prop({ required: true })
   src: string;
 }
 

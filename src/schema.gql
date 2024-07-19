@@ -66,14 +66,17 @@ interface VoteInterface {
 }
 
 type PostThumbnail implements PostThumbnailInterface {
+  id: String!
   src: String!
 }
 
 interface PostThumbnailInterface {
+  id: String!
   src: String!
 }
 
 type PostResource implements PostThumbnailInterface {
+  id: String!
   src: String!
   title: String!
   type: String!
@@ -216,6 +219,7 @@ input CreatePostInput {
 }
 
 input CreatePostThumbnail {
+  id: String!
   src: String!
 }
 
@@ -240,6 +244,7 @@ input EditPostOptions {
 }
 
 input EditPostThumbnail {
+  id: String!
   src: String!
 }
 
