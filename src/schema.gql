@@ -9,7 +9,7 @@ type User {
   id: MongoObjectId!
 
   """
-  The firs name of the user
+  The first name of the user
   """
   firstName: String!
 
@@ -160,6 +160,7 @@ type Query {
   ): UserBookmarksPaginationResponse!
   posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
   post(postId: MongoObjectId!): Post
+  userFeeds: [Post!]!
   getPostComments(
     postId: MongoObjectId!
     paginationOptions: PaginationOptions!
@@ -181,7 +182,7 @@ input SearchForPostInput {
 
 type Mutation {
   updateUserData(updateUserDataInput: UpdateUserDataInput!): Boolean!
-  createPost(createPostInput: CreatePostInput!): Boolean!
+  publishPost(createPostInput: CreatePostInput!): Boolean!
   editPost(editPostInput: EditPostInput!): Boolean!
   deletePost(postId: MongoObjectId!): Boolean!
   upvotePost(postId: MongoObjectId!): Boolean!

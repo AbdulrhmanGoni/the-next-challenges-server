@@ -30,11 +30,11 @@ export class PostsResolver {
   ) {}
 
   @Mutation(() => Boolean)
-  async createPost(
+  async publishPost(
     @Args('createPostInput') createPostInput: CreatePostInput,
     @CurrentUser() user: AuthorizedUser,
   ) {
-    return await this.postsService.createPost(createPostInput, user.id);
+    return await this.postsService.publishPost(createPostInput, user.id);
   }
 
   @Query(() => [Post], { name: 'posts' })
@@ -114,8 +114,8 @@ export class PostsResolver {
     return null;
   }
 
-  @Query(() => [Post], { name: 'userFeed' })
-  async userFeed(@CurrentUser() user: AuthorizedUser) {
+  @Query(() => [Post], { name: 'userFeeds' })
+  async userFeeds(@CurrentUser() user: AuthorizedUser) {
     return this.postsService.findPosts();
   }
 

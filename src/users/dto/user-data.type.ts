@@ -8,7 +8,7 @@ export class User {
   @Field(() => MongoObjectIdScalar, { description: 'The ID of the user' })
   id: Types.ObjectId;
 
-  @Field({ description: 'The firs name of the user' })
+  @Field({ description: 'The first name of the user' })
   firstName: string;
 
   @Field({ description: 'The last name of the user' })
