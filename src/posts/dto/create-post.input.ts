@@ -4,6 +4,9 @@ import { PostResourceInterface, PostThumbnailInterface } from '../interfaces';
 @InputType()
 class CreatePostThumbnail implements PostThumbnailInterface {
   @Field()
+  id: string;
+
+  @Field()
   src: string;
 }
 
