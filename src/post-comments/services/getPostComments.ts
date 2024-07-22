@@ -63,7 +63,7 @@ export default async function getPostComments(
               },
             },
           ],
-          isThereMoreCommentsPipeline: [
+          areThereMoreCommentsPipeline: [
             { $match: { _id: postId } },
             {
               $project: {
@@ -85,10 +85,10 @@ export default async function getPostComments(
       },
       {
         $project: {
-          isThereMore: {
+          areThereMore: {
             $getField: {
               field: 'answer',
-              input: { $arrayElemAt: ['$isThereMoreCommentsPipeline', 0] },
+              input: { $arrayElemAt: ['$areThereMoreCommentsPipeline', 0] },
             },
           },
           comments: '$commentsPipeline',
@@ -101,7 +101,7 @@ export default async function getPostComments(
     }
     return {
       comments: [],
-      isThereMore: false,
+      areThereMore: false,
     };
   } catch {
     throw new InternalServerErrorException();
