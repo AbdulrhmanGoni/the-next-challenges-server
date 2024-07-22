@@ -14,34 +14,84 @@ export default async function getPostComments(
 
     const { limit, skip } = preparePaginationOptions(pagination);
     const result = await PostCommentsModel.aggregate([
-      { $match: { _id: postId } },
       {
-        $project: {
-          _id: false,
-          comments: {
-            $map: {
-              input: { $slice: ['$comments', skip, limit] },
-              as: 'comment',
-              in: {
-                id: '$$comment.id',
-                comment: '$$comment.comment',
-                commenterId: '$$comment.commenterId',
-                createdAt: '$$comment.createdAt',
-                upvotes: '$$comment.upvotes.totalVotes',
-                downvotes: '$$comment.downvotes.totalVotes',
-              },
-            },
-          },
-          isThereMore: {
-            $eq: [
-              {
-                $toBool: {
-                  $arrayElemAt: ['$comments', skip + limit],
+        $facet: {
+          commentsPipeline: [
+            { $match: { _id: postId } },
+            {
+              $project: {
+                _id: false,
+                comments: {
+                  $map: {
+                    input: { $slice: ['$comments', skip, limit] },
+                    as: 'comment',
+                    in: {
+                      id: '$$comment.id',
+                      comment: '$$comment.comment',
+                      commenterId: '$$comment.commenterId',
+                      createdAt: '$$comment.createdAt',
+                      upvotes: '$$comment.upvotes.totalVotes',
+                      downvotes: '$$comment.downvotes.totalVotes',
+                    },
+                  },
                 },
               },
-              true,
-            ],
+            },
+            { $unwind: '$comments' },
+            { $replaceRoot: { newRoot: '$comments' } },
+            {
+              $lookup: {
+                as: 'ownerData',
+                from: 'users',
+                foreignField: '_id',
+                localField: 'commenterId',
+                pipeline: [
+                  {
+                    $project: {
+                      firstName: 1,
+                      lastName: 1,
+                      headline: 1,
+                      avatar: 1,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $set: {
+                owner: { $arrayElemAt: ['$ownerData', 0] },
+              },
+            },
+          ],
+          isThereMoreCommentsPipeline: [
+            { $match: { _id: postId } },
+            {
+              $project: {
+                _id: false,
+                answer: {
+                  $eq: [
+                    {
+                      $toBool: {
+                        $arrayElemAt: ['$comments', skip + limit],
+                      },
+                    },
+                    true,
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+      {
+        $project: {
+          isThereMore: {
+            $getField: {
+              field: 'answer',
+              input: { $arrayElemAt: ['$isThereMoreCommentsPipeline', 0] },
+            },
           },
+          comments: '$commentsPipeline',
         },
       },
     ]);
