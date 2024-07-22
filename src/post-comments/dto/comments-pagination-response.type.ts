@@ -4,7 +4,7 @@ import { PostComment } from './comment.type';
 @ObjectType()
 export class PostCommentsPaginationResponse {
   @Field()
-  isThereMore: boolean;
+  areThereMore: boolean;
 
   @Field(() => [PostComment])
   comments: PostComment[];

@@ -137,17 +137,25 @@ type JWT {
   accessToken: String!
 }
 
+type CommentOwner {
+  firstName: String!
+  lastName: String!
+  headline: String!
+  avatar: String
+}
+
 type PostComment {
   id: MongoObjectId!
   commenterId: MongoObjectId!
   comment: String!
   createdAt: Timestamp
+  owner: CommentOwner!
   upvotes: Int!
   downvotes: Int!
 }
 
 type PostCommentsPaginationResponse {
-  isThereMore: Boolean!
+  areThereMore: Boolean!
   comments: [PostComment!]!
 }
 
@@ -188,7 +196,6 @@ type Mutation {
   upvotePost(postId: MongoObjectId!): Boolean!
   downvotePost(postId: MongoObjectId!): Boolean!
   bookmarkPost(postId: MongoObjectId!): Boolean!
-  unbookmarkPost(postId: MongoObjectId!): Boolean!
   logInUser(logInUserInput: LogInUserInput!): JWT
   signUpUser(signUpUserInput: SignUpUserInput!): JWT
   addCommentToPost(postId: MongoObjectId!, comment: String!): String!
