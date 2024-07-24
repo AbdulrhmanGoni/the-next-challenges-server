@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type UserAvatar {
+  id: String!
+  src: String!
+}
+
 type User {
   """
   The ID of the user
@@ -26,7 +31,7 @@ type User {
   """
   The profile picture of the user
   """
-  avatar: String
+  avatar: UserAvatar
 
   """
   The email of the user
@@ -141,7 +146,7 @@ type CommentOwner {
   firstName: String!
   lastName: String!
   headline: String!
-  avatar: String
+  avatar: UserAvatar
 }
 
 type PostComment {
@@ -214,7 +219,12 @@ input UpdateUserDataInput {
   firstName: String
   lastName: String
   headline: String
-  avatar: String
+  avatar: UpdateAvatarInput
+}
+
+input UpdateAvatarInput {
+  id: String
+  src: String
 }
 
 input CreatePostInput {
@@ -281,7 +291,7 @@ input LogInUserInput {
 
 input SignUpUserInput {
   """
-  The firs name of the user
+  The first name of the user
   """
   firstName: String!
 
@@ -289,6 +299,11 @@ input SignUpUserInput {
   The last name of the user
   """
   lastName: String!
+
+  """
+  The headline of the user
+  """
+  avatar: AvatarInput
 
   """
   The headline of the user
@@ -304,4 +319,9 @@ input SignUpUserInput {
   The password of the user
   """
   password: String!
+}
+
+input AvatarInput {
+  id: String!
+  src: String!
 }

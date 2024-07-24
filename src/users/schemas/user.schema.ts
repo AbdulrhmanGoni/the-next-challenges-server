@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types, HydratedDocument } from 'mongoose';
 import { roles } from '../../constants/users-roles';
+import { AvatarSchema } from './user-avatar.schema';
 
 @Schema({ versionKey: false })
 export class User {
@@ -19,8 +20,8 @@ export class User {
   @Prop({ required: true })
   password: string;
 
-  @Prop()
-  avatar: string;
+  @Prop({ type: AvatarSchema })
+  avatar: AvatarSchema;
 
   @Prop({ default: roles.USER, required: true })
   role: string;
