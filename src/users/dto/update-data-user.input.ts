@@ -1,4 +1,14 @@
 import { InputType, Field } from '@nestjs/graphql';
+import { UserAvatarInterface } from '../interfaces';
+
+@InputType()
+export abstract class UpdateAvatarInput implements UserAvatarInterface {
+  @Field({ nullable: true })
+  id: string;
+
+  @Field({ nullable: true })
+  src: string;
+}
 
 @InputType()
 export class UpdateUserDataInput {
@@ -12,5 +22,5 @@ export class UpdateUserDataInput {
   headline?: string;
 
   @Field({ nullable: true })
-  avatar?: string;
+  avatar?: UpdateAvatarInput;
 }

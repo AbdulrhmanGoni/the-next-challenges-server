@@ -2,6 +2,16 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
 import { Types } from 'mongoose';
 import { roles } from '../../constants/users-roles';
+import { UserAvatarInterface } from '../interfaces';
+
+@ObjectType()
+export abstract class UserAvatar implements UserAvatarInterface {
+  @Field()
+  id: string;
+
+  @Field()
+  src: string;
+}
 
 @ObjectType()
 export class User {
@@ -17,11 +27,11 @@ export class User {
   @Field({ description: 'The headline of the user' })
   headline: string;
 
-  @Field({
+  @Field(() => UserAvatar, {
     description: 'The profile picture of the user',
     nullable: true,
   })
-  avatar: string;
+  avatar: UserAvatar;
 
   @Field({ description: 'The email of the user' })
   email: string;

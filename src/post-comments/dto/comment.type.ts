@@ -1,6 +1,7 @@
 import { Field, GraphQLTimestamp, Int, ObjectType } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../../global/dto/mongoObjectId.scalar';
+import { UserAvatar } from '../../users/dto/user-data.type';
 
 @ObjectType()
 export class CommentOwner {
@@ -14,7 +15,7 @@ export class CommentOwner {
   headline: string;
 
   @Field({ nullable: true })
-  avatar: string;
+  avatar: UserAvatar;
 }
 
 @ObjectType()
