@@ -103,6 +103,10 @@ export class PostsResolver {
 
   @ResolveField(() => String, { name: 'userVote', nullable: true })
   async userVote(@CurrentUser() user: AuthorizedUser, @Parent() post: Post) {
+    if (!user) {
+      return null;
+    }
+
     if (post.upvotes.voters.some((voterId) => user.id.equals(voterId))) {
       return 'upvote';
     }
