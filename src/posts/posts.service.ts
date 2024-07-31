@@ -5,6 +5,7 @@ import { Connection, Model } from 'mongoose';
 import {
   publishPost,
   findPostById,
+  getUserFeeds,
   findPosts,
   editPost,
   deletePost,
@@ -25,6 +26,8 @@ export class PostsService {
   publishPost = publishPost;
 
   findPosts = findPosts;
+
+  getUserFeeds = getUserFeeds;
 
   findPostById = findPostById;
 
