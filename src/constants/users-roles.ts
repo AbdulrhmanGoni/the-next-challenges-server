@@ -1,3 +1,5 @@
+export type RolesType = 'admin' | 'user';
+
 export const roles: { USER: 'user'; ADMIN: 'admin' } = Object.create(
   {},
   {
