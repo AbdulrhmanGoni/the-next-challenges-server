@@ -138,6 +138,11 @@ type UserBookmarksPaginationResponse {
   posts: [Post!]!
 }
 
+type UserFeedsPaginationResponse {
+  areThereMore: Boolean!
+  posts: [Post!]!
+}
+
 type JWT {
   accessToken: String!
 }
@@ -173,7 +178,7 @@ type Query {
   ): UserBookmarksPaginationResponse!
   posts(searchQuery: SearchForPostInput!, options: PaginationOptions): [Post!]!
   post(postId: MongoObjectId!): Post
-  userFeeds: [Post!]!
+  userFeeds(paginationOptions: PaginationOptions!): UserFeedsPaginationResponse!
   getPostComments(
     postId: MongoObjectId!
     paginationOptions: PaginationOptions!
