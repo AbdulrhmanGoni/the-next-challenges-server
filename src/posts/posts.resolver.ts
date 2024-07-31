@@ -20,6 +20,7 @@ import { MongoObjectIdScalar } from '../global/dto/mongoObjectId.scalar';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
+import { UserFeedsPaginationResponse } from './dto/user-feeds-pagination-response.type';
 
 @Resolver(() => Post)
 @UseGuards(GqlJwtAuthGuard)
@@ -118,9 +119,12 @@ export class PostsResolver {
     return null;
   }
 
-  @Query(() => [Post], { name: 'userFeeds' })
-  async userFeeds(@CurrentUser() user: AuthorizedUser) {
-    return this.postsService.findPosts();
+  @Query(() => UserFeedsPaginationResponse, { name: 'userFeeds' })
+  async userFeeds(
+    @Args('paginationOptions') paginationOptions: PaginationOptions,
+    @CurrentUser() user: AuthorizedUser,
+  ) {
+    return this.postsService.getUserFeeds(user.id, paginationOptions);
   }
 
   @ResolveField(() => Int, { name: 'upvotes', defaultValue: 0 })
