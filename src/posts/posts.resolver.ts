@@ -18,9 +18,10 @@ import { PaginationOptions } from '../global/dto/pagination-options.dto';
 import { Types } from 'mongoose';
 import { MongoObjectIdScalar } from '../global/dto/mongoObjectId.scalar';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 import { UserFeedsPaginationResponse } from './dto/user-feeds-pagination-response.type';
+import { CurrentUser } from '../auth/decorators/current-user.decoretor';
 
 @Resolver(() => Post)
 @UseGuards(GqlJwtAuthGuard)

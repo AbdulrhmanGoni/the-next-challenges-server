@@ -1,4 +1,4 @@
-import { CurrentUser, GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { Types } from 'mongoose';
 import { BadRequestException, UseGuards } from '@nestjs/common';
@@ -8,6 +8,7 @@ import { PostsCommentsService } from './posts-comments.service';
 import { PostsComments } from './schemas/posts-comments.schema';
 import { PaginationOptions } from '../global/dto/pagination-options.dto';
 import { PostCommentsPaginationResponse } from './dto/comments-pagination-response.type';
+import { CurrentUser } from '../auth/decorators/current-user.decoretor';
 
 @Resolver(() => PostsComments)
 @UseGuards(GqlJwtAuthGuard)
