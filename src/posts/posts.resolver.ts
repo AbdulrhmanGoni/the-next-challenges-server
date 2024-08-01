@@ -125,7 +125,7 @@ export class PostsResolver {
     @Args('paginationOptions') paginationOptions: PaginationOptions,
     @CurrentUser() user: AuthorizedUser,
   ) {
-    return this.postsService.getUserFeeds(user.id, paginationOptions);
+    return this.postsService.getUserFeeds(user?.id, paginationOptions);
   }
 
   @ResolveField(() => Int, { name: 'upvotes', defaultValue: 0 })
