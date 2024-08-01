@@ -1,7 +1,6 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
-import { createParamDecorator } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/is-public.decorator';
 import { Observable } from 'rxjs';
@@ -39,10 +38,3 @@ export class GqlJwtAuthGuard extends AuthGuard('jwt') {
     return isPublic || result;
   }
 }
-
-export const CurrentUser = createParamDecorator(
-  (_data: unknown, context: ExecutionContext) => {
-    const ctx = GqlExecutionContext.create(context);
-    return ctx.getContext().req.user;
-  },
-);
