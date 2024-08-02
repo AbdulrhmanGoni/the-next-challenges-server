@@ -45,7 +45,7 @@ export default async function getUserBookmarks(
     ]);
 
     return {
-      areThereMorePosts: !!result?.areThereMorePosts,
+      areThereMore: !!result?.areThereMorePosts,
       posts: result?.posts || [],
     };
   } catch {

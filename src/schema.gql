@@ -134,7 +134,7 @@ type Post {
 scalar Timestamp
 
 type UserBookmarksPaginationResponse {
-  areThereMorePosts: Boolean!
+  areThereMore: Boolean!
   posts: [Post!]!
 }
 
