@@ -22,6 +22,7 @@ import { GqlJwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthorizedUser } from '../auth/dto/auth-related.dto';
 import { UserFeedsPaginationResponse } from './dto/user-feeds-pagination-response.type';
 import { CurrentUser } from '../auth/decorators/current-user.decoretor';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 
 @Resolver(() => Post)
 @UseGuards(GqlJwtAuthGuard)
@@ -40,6 +41,7 @@ export class PostsResolver {
   }
 
   @Query(() => [Post], { name: 'posts' })
+  @IsPublic()
   async findPosts(
     @Args('searchQuery') searchQuery: SearchForPostInput,
     @Args('options', { nullable: true }) options: PaginationOptions,
@@ -48,6 +50,7 @@ export class PostsResolver {
   }
 
   @Query(() => Post, { name: 'post', nullable: true })
+  @IsPublic()
   async findPostById(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
   ) {
@@ -121,6 +124,7 @@ export class PostsResolver {
   }
 
   @Query(() => UserFeedsPaginationResponse, { name: 'userFeeds' })
+  @IsPublic()
   async userFeeds(
     @Args('paginationOptions') paginationOptions: PaginationOptions,
     @CurrentUser() user: AuthorizedUser,
