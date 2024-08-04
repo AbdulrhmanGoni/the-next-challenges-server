@@ -8,6 +8,7 @@ import { PostsCommentsService } from './posts-comments.service';
 import { PostsComments } from './schemas/posts-comments.schema';
 import { PaginationOptions } from '../global/dto/pagination-options.dto';
 import { PostCommentsPaginationResponse } from './dto/comments-pagination-response.type';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decoretor';
 
 @Resolver(() => PostsComments)
@@ -43,6 +44,7 @@ export class PostsCommentsResolver {
   }
 
   @Query(() => PostCommentsPaginationResponse)
+  @IsPublic()
   async getPostComments(
     @Args('postId', { type: () => MongoObjectIdScalar }) postId: Types.ObjectId,
     @Args('paginationOptions') paginationOptions: PaginationOptions,
