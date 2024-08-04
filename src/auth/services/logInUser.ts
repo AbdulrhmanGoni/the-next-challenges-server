@@ -15,6 +15,8 @@ export default async function logInUser(
   if (user) {
     return this.sign(user);
   } else {
-    throw new UnauthorizedException();
+    throw new UnauthorizedException(
+      'هناك خطأ في البريد الالكتروني أو كلمة المرور',
+    );
   }
 }
