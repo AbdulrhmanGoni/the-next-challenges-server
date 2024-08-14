@@ -32,7 +32,7 @@ export class UsersResolver {
 
   @Query(() => User, { name: 'userData', nullable: true })
   async getUserData(@CurrentUser() user: AuthorizedUser) {
-    return await this.usersService.findUserById(user.id);
+    return await this.usersService.findUserById(user?.id);
   }
 
   @Query(() => User, { name: 'user', nullable: true })
