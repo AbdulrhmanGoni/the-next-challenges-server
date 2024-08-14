@@ -1,4 +1,4 @@
-import preparePaginationOptions from 'src/global/utils/preparePaginationOptions';
+import preparePaginationOptions from '../../global/utils/preparePaginationOptions';
 import { PaginationOptions } from '../../global/dto/pagination-options.dto';
 import { UserFeedsPaginationResponse } from '../dto/user-feeds-pagination-response.type';
 import { Post } from '../schemas/post.schema';
