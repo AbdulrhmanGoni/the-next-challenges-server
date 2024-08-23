@@ -21,7 +21,7 @@ if (target === "units") {
     if (skipRunningDatabase) {
         execute(`yarn test:${target}`, envVariables);
     } else {
-        execute('docker-compose -f docker-compose-testing-mongodb.yaml up -d');
+        execute('yarn test:run-db');
         initializeMongodbReplSet()
             .then(() => {
                 execute(`yarn test:${target}`, envVariables);
