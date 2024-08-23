@@ -5,10 +5,14 @@ import getTestingENV from './getTestingENV.mjs';
 
 const target = argv[2] || "all";
 let skipRunningDatabase = false;
+let killDatabaseAfterTests = false;
 
 for (let index = 3; index < argv.length; index++) {
     if (argv[index] === "--skip-db") {
         skipRunningDatabase = true
+    }
+    if (argv[index] === "--kill-db") {
+        killDatabaseAfterTests = true
     }
 }
 
@@ -25,6 +29,8 @@ if (target === "units") {
         initializeMongodbReplSet()
             .then(() => {
                 execute(`yarn test:${target}`, envVariables);
+                killDatabaseAfterTests &&
+                    execute('yarn test:kill-db');
                 process.exit();
             })
     }
