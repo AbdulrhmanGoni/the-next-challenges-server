@@ -23,7 +23,7 @@ export default async function signUpUser(
   }
 
   if (isUserExist) {
-    throw new BadRequestException('This email is already regitered');
+    throw new BadRequestException('هذا الإيميل مسجل لدينا بالفعل');
   }
 
   try {
