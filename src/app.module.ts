@@ -12,7 +12,7 @@ import { PostsCommentsModule } from './post-comments/posts-comments.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb://primary-mongodb,secondary-mongodb-1,secondary-mongodb-2',
+      'mongodb://primary-mongodb,secondary-mongodb-1,secondary-mongodb-2/the-next-challenges',
     ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
